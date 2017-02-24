@@ -1,0 +1,104 @@
+<div ui-view class="animated fadeUpLeft">
+  <div class="bg-light lter b-b wrapper-md">
+	<div ng-include="'./modules/includes/menuContextual.html'"></div>
+	 <h1 class="m-n font-thin h3">Notícias</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">    
+    <div class="table-responsive">
+
+      <div class="panel-body">
+        <div class="clearfix">
+          <div class="input-group m-b">
+            <span class="input-group-btn" 
+                  ng-click="field.postCategoryId = null; field.search = ''">
+              <button class="btn btn-default btn-sm pointer" style="border-radius: 15px 0px 0px 15px;"
+                      type="button">
+                <i class="fa fa-close"></i>
+              </button>
+            </span>
+            <input type="text" class="form-control input-sm btn-rounded" placeholder="Busque aqui" ng-model="field.search" />
+          </div>
+        </div>
+        <div class="clearfix"></div>
+   
+        <div class="row m-l-sm m-r-sm">
+            <label class="m-r-lg" 
+                  ng-repeat="cat in categories" 
+                  ng-click="field.postCategoryId = cat.id">
+
+              <i class="fa text-primary m-r-xs" 
+                 ng-click="field.postCategoryId = cat.id"
+                 ng-class="{'fa-check-circle':cat.id == field.postCategoryId, 
+                            'fa-circle-thin':cat.id != field.postCategoryId}"></i>
+              {{cat.name}}
+
+            </label>
+          </div>
+        
+        </div>
+      </div>
+
+      <table class="table table-hover table-striped b-t b-light" ng-show="results.items.length">
+        <thead>
+          <tr>
+          	<th class="text-center">Imagem</th>
+            <th class="text-center">Social</th>
+          	<th class="text-center">Título</th>
+            <th class="text-center">Descrição</th>
+            <th class="text-center">Criação</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="item in results.items" ui-sref="app.empresa.post.form({'companyId': params.companyId, 'pageId':params.pageId, 'id': item.id})">
+  			    <td class="text-center v-middle">
+  			   	 <img class="thumb"  ng-src="{{item.imageUrl}}"/>
+  		   	  </td>
+            <td class="text-center v-middle">
+              
+              <div ng-show="item.totalLike"><i class="fa fa-thumbs-o-up m-r-5"/> {{item.totalLike}}</div>
+              <div ng-show="item.comments.length"><i class="fa fa-comments-o"/> {{item.comments.length}}</div>
+
+            </td>
+          	<td class="text-center v-middle">{{item.title}}</td>
+            <td class="text-center v-middle">{{item.description}}</td>
+            <td class="text-center v-middle">{{fromNow(item.createAt, 'YYYY-MM-DD HH:mm:SS')}}</td>
+          </tr>
+        </tbody>
+
+      </table>
+
+      <p ng-hide="results.items.length" class="text-center text-muted m-t-lg m-b-lg">Sem informações para exibir no momento</p>
+
+      <footer class="panel-footer" ng-show="results.items.length">
+        <div class="row text-center">
+		  	<p class="text-muted">Total de registros: {{results.totalData}}, registros da página: {{results.totalByPage}}</p>
+			<nav ng-show="results.items">
+				<ul class="pagination">
+					<li ng-class="{'disabled':results.pagePrevious==null}">
+						<a ng-show="results.pagePrevious!=null" 
+						   ui-sref="app.empresa.post({companyId: params.companyId, pageId: results.pagePrevious})">
+							<span>&laquo;</span>
+						</a>
+						<span ng-show="results.pagePrevious==null">&laquo;</span>
+					</li>
+					<li ng-repeat="p in [] | range:results.totalPages" 
+					    ng-class="{'active':results.current==p}">
+					    <a ui-sref="app.empresa.post({companyId: params.companyId, pageId: p})">{{p}}</a>
+					</li>
+					<li ng-class="{'disabled':results.pageNext==null}">
+						<a ng-show="results.pageNext!=null" 
+						   ui-sref="app.empresa.post({companyId: params.companyId, pageId: results.pageNext})">
+							<span>&raquo;</span>
+						</a>
+						<span ng-show="results.pageNext==null">&raquo;</span>
+					</li>			
+				</ul>
+			</nav>  
+        </div>
+      </footer>
+      
+    </div>
+  </div>
+</div>

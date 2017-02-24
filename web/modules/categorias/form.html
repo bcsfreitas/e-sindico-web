@@ -1,0 +1,62 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">Gerenciar Categoria
+    </h1>
+
+</div>
+
+<div class="wrapper-md">
+
+    <div class="panel panel-default">
+        <div class="panel-body"> 
+
+        <div class="form-group">
+
+                <div class="col-lg-6 col-lg-offset-3 text-center">
+                    <div class="input-group">
+                      <input type="text" class="form-control" 
+                      		 autocomplete="off" 
+                      		 placeholder="Nome da categoria" 
+                      		 ng-model="categoria.tx_descricao">
+
+                      <span class="input-group-btn">
+                      	<button class="btn btn-primary" ng-click="save()">
+                      	<i class="fa fa-save m-r-xs"></i> 
+                      		<span>Salvar</span>
+                      	</button>
+                      </span>
+                    </div>               
+                </div>
+        
+                <div class="clearfix"></div>
+
+                <div class="m-t-lg col-lg-6 col-lg-offset-3 text-center">
+
+                    <table st-table="rowCollectionBasic" class="m-t-sm table table-bordered table-striped">
+                        <thead>
+                                <tr>
+                                    <th>Categoria</th>
+                                    <th>Situação</th>
+                                    <th class="text-center">Ações</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="c in results">
+                                <td>{{c.tx_descricao}}</td>
+                                <td>{{c.tx_status | status}}</td>
+                                <td class="text-center">
+                                    <button class="btn btn-xs btn-info" ng-click="setEdit(c)"><i class="fa fa-pencil m-r-xs" ></i> Editar</button>
+                                    <button class="btn btn-xs btn-danger" ng-click="delete(c.id_subcategoria)"><i class="fa fa-trash m-r-xs"></i> Excluir</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>  
+
+            <div class="clearfix"></div>
+
+
+        </div>
+    </div> 
+</div>

@@ -1,0 +1,65 @@
+<div ui-view > 
+  <div class="bg-light lter b-b wrapper-md">
+	<button type="button"
+	        class="btn btn-default btn-addon pull-right m-t-n-xs" 
+	        target="#aside" 
+	        ng-click="form()">
+	        <i class="fa fa-plus"></i> Cadastrar Unidade
+   </button>
+	 <h1 class="m-n font-thin h3">Unidades</h1>
+</div>
+<div class="row wrapper-md">
+	<div ng-show="!unidades.length">
+		Sem unidades cadastradas no sistema.
+	</div>
+	<form class="form-inline hidden-print" ng-show="unidades.length">
+	  <p>Utilize as opções abaixo, para filtrar as encomendas na tabela de dados.</p>
+	  <div class="form-group">
+	    <label for="rua" class="sr-only">Rua</label>
+	    <input type="text" class="form-control" id="rua" 
+	           placeholder="Rua" 
+	           ng-model="ft.rua">
+	  </div>
+	  <div class="form-group">
+	    <label for="numero" class="sr-only">Nº</label>
+	    <input type="text" class="form-control" id="numero" 
+	           placeholder="Número" 
+	           ng-model="ft.numero">
+	  </div>
+	  <div class="form-group">
+	    <label for="proprietario" class="sr-only">Nº</label>
+	    <input type="text" class="form-control" id="proprietario" 
+	           placeholder="Proprietário" 
+	           ng-model="ft.nome">
+	  </div>
+	</form>
+
+	<div class="clearfix m-t-md"></div>
+	<div class="panel panel-default" ng-show="unidades.length">
+		<table class="table table-hover table-bordered table-striped pdf-print">
+			<thead>
+			<tr>
+			  <th class="text-center">Logradouro</th>
+			  <th class="text-center">Rua/Torre</th>
+			  <th class="text-center">Nº</th>
+			  <th class="text-center">Tipo de Residência</th>
+			  <th class="text-center">Proprietário</th>
+			</tr>
+			</thead>
+		<tbody>
+		  <tr class="pointer" 
+		      ng-repeat="e in unidades|filter:ft|orderBy:['rua', '-numero']"
+		      ng-click="setUnidade({{e.id}})">
+		    <td class="text-center">{{e.logradouro}}</td>
+		    <td class="text-center">{{e.rua}}</td>
+		    <td class="text-center">{{e.numero}}</td>
+		    <td class="text-center">
+		    	<span></span>
+		    	{{(e.tipo == 1 && 'Casa de 3 Quartos' || e.tipo == 2 && 'Casa de 2 Quartos' || e.tipo == 3 && 'Apartamento')}}
+		    </td>
+		    <td class="text-center">{{e.nome}}</td>
+		  </tr>
+		</tbody>
+		</table>
+		</div>
+</div>

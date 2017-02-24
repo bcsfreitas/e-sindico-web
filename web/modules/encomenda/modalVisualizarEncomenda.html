@@ -1,0 +1,68 @@
+  <script type="text/ng-template" id="modalVisualizarEncomenda.html">
+    <div class="modal-header">
+        <h4 class="modal-title">VIsualizar Encomenda</h4>
+    </div>
+    <div class="modal-body row col-lg-12 col-md-12">
+      <div ng-show="error" class="col-md-offset-1 col-md-10 alert alert-danger">
+        <i class="fa fa-exclamation-triangle m-r-xs"></i> {{error}}
+      </div>
+      <div ng-show="sucessMessage" class="col-md-offset-1 col-md-10 alert alert-success">
+        <i class="fa fa-thumbs-o-up m-r-xs"></i> {{sucessMessage}}
+      </div>
+
+      <div class="form-group col-md-6">
+        <strong for="remetente">Remetente:</strong>
+        <div>{{e.remetente}}</div>
+      </div>
+      <div class="form-group col-md-6">
+        <strong for="dest">Destinatário:</strong>
+        <div>{{e.nome}} ({{e.rua}} {{e.numero}})</div>
+      </div>
+      <div class="form-group col-md-6">
+        <strong for="dest">Data de Entrada:</strong>
+        <div>{{formataData(e.dt_entrada)}}</div>
+      </div>
+      <div class="form-group col-md-6" ng-show="e.dt_entrega">
+        <strong for="dest">Data de Saída:</strong>
+        <div>{{formataData(e.dt_entrega)}}</div>
+      </div>
+      <div class="form-group" ng-class="{'col-md-6':!e.dt_entrega, 'col-md-12':e.dt_entrega}" 
+           ng-show="!e.dt_entrega && e.observacao">
+        <strong for="dest">Observações:</strong>
+        <div>{{e.observacao}}</div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-12 col-xs-12" ng-show="e.dt_entrega && e.observacao">
+        <div>
+          <strong for="fotoEncomenda">Observações:</strong>
+        </div>
+        <div class="col-md-12">
+          {{e.observacao}}
+        </div>        
+    </div>
+
+    <div class="form-group col-md-6 col-xs-6">
+        <div>
+          <strong for="fotoEncomenda">Foto da Encomenda:</strong>
+        </div>
+        <div class="col-md-12 col-md-6 row">
+          <fotoview ng-model="e.fotoEncomenda" path-view="'gallery/encomenda'"></fotoview>
+        </div>        
+    </div>
+
+    <div class="form-group col-md-6 col-xs-6">
+        <div>
+          <strong for="fotoEncomenda">Foto da Entrega:</strong>
+        </div>
+        <div class="col-xs-12 col-md-6 row">
+            <fotoview ng-model="e.fotoEntrega" path-view="'gallery/encomenda-entrega'"></fotoview>
+        </div>        
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="close()">Fechar</button>
+    </div>
+</script>

@@ -1,0 +1,228 @@
+<div ng-include="'./modules/morador/modalDeletar.html'"></div>
+<div class="bg-light lter b-b wrapper-md">
+  <div class="visible-md-block visible-lg-block">
+    <button class="btn btn-default btn-addon pull-right m-t-n-xs m-r-xs" 
+      target="#aside" 
+      ng-click="listagem()">
+    <i class="fa fa-list m-r-xs"></i> Lista de Moradores
+    </button>
+    <button class="btn btn-danger btn-addon pull-right m-t-n-xs m-r-sm" 
+      target="#aside" ng-click="deletar()" ng-show="morador.id" 
+                      ng-disabled="!globalPermission(5)">
+    <i class="fa fa-trash m-r-xs"></i> Excluir morador
+    </button>     
+  </div>
+  <!-- DROP DOWN MENU -->
+  <div class="btn-group pull-right visible-xs-block visible-sm-block" dropdown>
+    <button type="button" 
+      class="btn btn-default btn-addon m-t-n-xs hidden-print" 
+      ui-toggle-class="show" 
+      target="#aside" 
+      ng-click="listagem()">
+    <i class="fa fa-list"></i> Lista de Moradores
+    </button>
+    <button type="button" class="btn btn-default m-t-n-xs hidden-print" dropdown-toggle>
+    <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="split-button">
+      <!-- <li class="divider"></li> -->
+      <li role="menuitem">
+        <a href="#" ng-click="deletar()">
+        <i class="fa fa-trash m-r-xs"></i> Excluir morador
+        </a>
+      </li>
+    </ul>
+  </div>
+  <h1 class="m-n font-thin h3">Moradores</h1>
+</div>
+<div class="wrapper-md">
+<div class="panel panel-default">
+  <div class="panel-heading font-bold">
+    <span ng-show="!morador.id"><i class="fa fa-user m-r-xs"></i>Cadastro de Morador</span>
+    <span ng-show="morador.id"><i class="fa fa-pencil m-r-xs"></i>Edição de Morador</span>
+  </div>
+  <div class="panel-body">
+    <form  class="" name="form" role="form">
+      <div class="row col-xs-12 col-md-6">
+        <div class="form-group col-xs-12 col-lg-6">
+          <div>
+            <label>Foto do usuário</label>
+          </div>
+          <fotocam ng-model="morador.fotoPessoal" 
+            path-save="'../../gallery/morador/'"
+            path-view="'gallery/morador'"
+            filename="'morador'">
+          </fotocam>
+        </div>
+        <div class="form-group col-xs-12 col-lg-6">
+          <div>
+            <label>Foto do documento</label>
+          </div>
+          <fotocam ng-model="morador.fotoDocumento" 
+            path-save="'../../gallery/morador/'"
+            path-view="'gallery/morador'"
+            filename="'morador_doc'">
+          </fotocam>
+        </div>
+        <div class="clearfix"></div>
+        <hr/>
+        <div class="checkbox form-group  col-xs-12">
+          <label class="i-checks" style="display: inline-block;">
+          <input type="checkbox" no-checked="" ng-model="hasCpf" /><i></i> Marque caso o morador não possua CPF
+          </label>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group col-xs-12" ng-if="!hasCpf">
+          <label>CPF</label>
+          <input type="text" 
+            name="cpf" 
+            class="form-control"  
+            ng-model="morador.cpf" 
+            clean="true"
+            restrict="reject"
+            required
+            ng-cpf 
+            mask="999.999.999-99"/>
+        </div>
+        <div class="form-group col-xs-12">
+          <label>Data de nascimento</label>
+          <input type="text" 
+            name="dtNascimento" 
+            class="form-control"  
+            mask="99/99/9999"
+            placeholder="dd/mm/yyyy"
+            ng-pattern="/(\d{2})/(\d{2})/(\d{4})/"
+            required
+            ng-model="morador.dtNascimento" />
+        </div>
+        <div class="form-group col-xs-12">
+          <label>Nome completo</label>
+          <input 
+            type="text" 
+            name="nome" 
+            class="form-control" 
+            placeholder="Nome completo" 
+            ng-model="morador.nome"/>
+        </div>
+        <div class="form-group col-xs-12">
+          <label>E-mail</label>
+          <input type="email" 
+            name="email" 
+            class="form-control" 
+            placeholder="Preencha um e-mail válido" 
+            ng-model="morador.email"/>
+        </div>
+      </div>
+      <div class=" col-xs-12 col-md-6">
+        <div class="form-group col-xs-12">
+          <label>Telefones</label>
+          <p>Adicione quantos telefones forem necessários</p>
+          <table class="table table-bordered" ng-show="morador.telefones.length">
+            <thead>
+              <tr>
+                <th>Número</th>
+                <th>Descrição</th>
+                <th>Tipo do Telefone</th>
+                <th>Operadora</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <div class="alert alert-danger" ng-show="morador.telefone.error">
+                <div ng-repeat="error in morador.telefone.error">
+                  {{error.show}}
+                </div>
+              </div>
+              <tr ng-repeat="t in morador.telefones">
+                <td class="text-center">{{t.telefone|telefone}}</td>
+                <td class="text-center">{{t.descricao}}</td>
+                <td class="text-center">
+                  <i ng-class="t.icone"></i></span>
+                </td>
+                <td class="text-center">{{getOpCelular(t.op_celular).nome}}</td>
+                <td class="text-center">
+                  <button class="btn btn-xs btn-danger" ng-click="delTelefone(t)">
+                  <i class="fa fa-trash m-r-xs"></i>Remover
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="form-group col-xs-12 col-md-3">
+            <label>Número</label>
+            <input type="text" 
+              autocomplete="off"
+              class="form-control" 
+              placeholder="Número do telefone com DDD" 
+              clean="true"
+              mask="(99) 99999?-9999"
+              ng-model="morador.telefone.telefone"/>
+          </div>
+          <div class="form-group col-xs-12 col-md-3">
+            <label>Descrição</label>
+            <input type="text" 
+              autocomplete="off"
+              class="form-control" 
+              placeholder="Descrição do telefone" 
+              ng-model="morador.telefone.descricao"/>
+          </div>
+          <div class="form-group col-xs-12 col-md-3">
+            <label>Tipo do Telefone</label>
+            <div class="btn-group">
+              <label class="btn btn-default btn-sm" 
+                ng-model="morador.telefone.icone" 
+                btn-radio="'fa fa-phone'"
+                tooltip="Telefone Fixo!">
+              <i class="fa fa-phone"></i>
+              </label>
+              <label class="btn btn-default btn-sm" 
+                ng-model="morador.telefone.icone" 
+                btn-radio="'fa fa-mobile'" tooltip="Telefone Celular!">
+              <i class="fa fa-mobile"></i>
+              </label>
+              <label class="btn btn-default btn-sm" 
+                ng-model="morador.telefone.icone" 
+                btn-radio="'fa fa-whatsapp'" tooltip="Telefone celular com Whatzap!" >
+              <i class="fa fa-whatsapp"></i>
+              </label>
+            </div>
+          </div>
+          <div class="form-group col-xs-12 col-md-3">
+            <label>Operadora</label>
+            <select class="form-control" ng-model="morador.telefone.op_celular">
+              <option ng-repeat="op in operadoras"
+                value="{{op.id}}">
+                {{op.nome}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-xs-12 col-md-3 pull-right">
+            <button class="btn btn-sm btn-primary pull-right" ng-click="addTelefone()">
+            <i class="fa fa-plus m-r-xs"></i>Adicionar Telefone
+            </button>
+          </div>
+ 
+          </div>
+          <div class="form-group col-xs-12">
+            <label>Unidade do morador</label>
+            <p class="help-text">Utilize a busca de unidades para definir a unidade deste morador</p>
+            <busca-de-endereco 
+              ng-model="morador.unidade"
+              name="unidade">
+            </busca-de-endereco>
+          </div>
+        </div>
+    </form>
+    </div>
+    <footer class="panel-footer text-right bg-light lter">
+      <button 
+        type="submit" 
+        class="btn btn-primary btn-rounded" 
+        ng-disabled="form.$invalid" 
+        ng-click="save()">
+      <span ng-show="morador.id">Editar</span>
+      <span ng-hide="morador.id">Cadastrar</span>
+      </button>
+    </footer>
+  </div>
+</div>

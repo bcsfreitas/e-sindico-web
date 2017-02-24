@@ -1,0 +1,82 @@
+  <script type="text/ng-template" id="modalRegistrarSaidaEncomenda.html">
+    <style>
+    table tbody tr:hover {
+      cursor: pointer;
+      border: 2px solid #FFA500;
+    }
+    .close1{
+      color:red;
+      margin-top:3px;
+    }
+    #fotocam {
+            height: 400px;
+            width: 300px;
+    }
+    label{
+      font-weight:bold;
+    }
+    </style>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Registar Entrga de Encomenda</h4>
+    </div>
+    <div class="modal-body col-xs-12">
+
+      <accordion close-others="oneAtATime">
+      <accordion-group is-open="foto.open">
+          <accordion-heading>
+              <i ng-class="{'fa fa-camera m-r-xs':!fotoEntrega, 
+                            'fa fa-check-circle':fotoEntrega}"></i>
+              <span>Tirar uma fotografia da entrega da encomenda</span>
+              <i class="pull-right glyphicon" 
+               ng-class="{'glyphicon-chevron-down': foto.open, 'glyphicon-chevron-right': !foto.open}">
+              </i>
+          </accordion-heading>
+          <div ng-show="foto.open">
+            <div class="col-xs-12 col-md-8 col-lg-6 text-center col-md-offset-2 col-lg-offset-3 centered">
+              <fotocam ng-model="fotoEntrega" 
+                   path-save="'../../gallery/encomenda-entrega/'"
+                   path-view="'gallery/encomenda-entrega/'"
+                   filename="'enc-entrega'">
+              </fotocam> 
+            </div>
+          </div>
+      </accordion-group>
+      </accordion>
+
+      <div class="form-group col-md-6">
+        <label for="remetente">Remetente:</label>
+        <div>{{e.remetente}}</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="dest">Destinatário:</label>
+        <div>{{e.nome}} ({{e.rua}} {{e.numero}})</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="dest">Data de Entrada:</label>
+        <div>{{formataData(e.dt_entrada)}}</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="dest">Data de Saída:</label>
+        <div>{{formataData2(dt_entrega)}} (Agora)</div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-4 col-xs-4" ng-show="e.fotoEncomenda">
+        <div>
+          <label for="fotoEncomenda">Foto da Encomenda:</label>
+        </div>
+        <div class="thumbnail col-md-12">
+          <img ng-src="gallery/encomenda/{{e.fotoEncomenda}}"/>
+        </div>        
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="close()">Fechar</button>
+        <button class="btn btn-primary" ng-click="registrar()" ng-disabled="!btn">
+            <i class="icon-envelope-letter m-r-xs"></i> Registrar Saída
+        </button>
+    </div>
+</script>

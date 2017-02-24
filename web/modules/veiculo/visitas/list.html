@@ -1,0 +1,183 @@
+<div class="bg-light lter b-b wrapper-md">
+  <div ng-include="'./modules/includes/menuContextual.html'"></div>
+  <h1 class="m-n font-thin h3">Visitas de Veículo</h1>
+  <small class="text-muted">Listagem das informações de visitas de veículos</small>
+</div>
+<div ng-include="'./modules/veiculo/visitas/modalRegistrarVisita2.html'"></div>
+<div class="wrapper-md">
+  <div ng-controller="visitasListCtrl">
+    <div ng-show="!visitas.length">
+      Sem visita cadastrada no sistema.
+    </div>
+    <form class="form-inline hidden-print visible-xs-block" ng-show="visitas.length">
+        <accordion>
+          <accordion-group is-open="open">
+              <accordion-heading>
+                  <i class="fa fa-filter m-r-xs"></i>
+                  <span>Configurações de filtragem</span>
+                  <i class="pull-right glyphicon" 
+                   ng-class="{'glyphicon-chevron-down': open, 
+                              'glyphicon-chevron-right': !open}">
+                  </i>
+              </accordion-heading>
+              <div ng-show="open">
+                <div class="form-group">
+                  <label for="placa" class="sr-only">Placa</label>
+                  <input type="text" class="form-control" id="placa" 
+                         placeholder="Placa" 
+                         ng-model="ft.placa">
+                </div>
+                <div class="form-group">
+                  <label for="marca" class="sr-only">Marca</label>
+                  <input type="text" class="form-control" id="marca" 
+                         placeholder="Marca"
+                         ng-model="ft.marca">
+                </div>
+                <div class="form-group">
+                  <label for="modelo" class="sr-only">Modelo</label>
+                  <input type="text" class="form-control" id="modelo" 
+                         placeholder="Modelo"
+                         ng-model="ft.modelo">
+                </div>
+                <div class="form-group">
+                  <label for="cor" class="sr-only">Cor</label>
+                  <input type="text" class="form-control" id="cor" 
+                         placeholder="Cor" 
+                         ng-model="ft.cor">
+                </div>
+                <div class="form-group">
+                  <div class="checkbox form-group col-sm-12">
+                          <label class="i-checks" 
+                                 style="display: inline-block;">
+                            <input type="checkbox" 
+                                   checked 
+                                   ng-model="veiculosSemSaida" 
+                                   ng-change="setVeiculosSemSaida()"
+                                   />
+                            <i></i> Exibir veículos sem saída
+                          </label>
+                        </div>
+                </div>
+              </div>
+          </accordion-group>
+        </accordion>  
+    </form>
+
+    <form class="form-inline hidden-print m-t-sm hidden-xs" ng-show="visitas.length">
+      <p>Utilize as opções abaixo, para filtrar os veículos na tabela de dados.</p>
+      
+      <div class="form-group">
+        <label for="placa" class="sr-only">Placa</label>
+        <input type="text" class="form-control" id="placa" 
+               placeholder="Placa" 
+               ng-model="ft.placa">
+      </div>
+      <div class="form-group">
+        <label for="marca" class="sr-only">Marca</label>
+        <input type="text" class="form-control" id="marca" 
+               placeholder="Marca"
+               ng-model="ft.marca">
+      </div>
+      <div class="form-group">
+        <label for="modelo" class="sr-only">Modelo</label>
+        <input type="text" class="form-control" id="modelo" 
+               placeholder="Modelo"
+               ng-model="ft.modelo">
+      </div>
+      <div class="form-group">
+        <label for="cor" class="sr-only">Cor</label>
+        <input type="text" class="form-control" id="cor" 
+               placeholder="Cor" 
+               ng-model="ft.cor">
+      </div>
+      <div class="form-group">
+        <div class="checkbox form-group col-sm-12">
+                <label class="i-checks" 
+                       style="display: inline-block;">
+                  <input type="checkbox" 
+                         checked 
+                         ng-model="veiculosSemSaida" 
+                         ng-change="setVeiculosSemSaida()"
+                         />
+                  <i></i> Exibir veículos sem saída
+                </label>
+              </div>
+      </div>
+    </form>
+    <div class="clearfix m-t-md"></div>
+
+    <div class="list-group list-group-sm visible-xs-block">
+        <div class="list-group-item" 
+             ng-repeat="v in visitas|filter:ft|orderBy:['data_saida', '-data_visita']" 
+             ng-click="visualizarVisita($event, v)">
+
+          <div class="pull-right">
+            <div class="text-muted">Unidade:</div>
+            <span class="pull-right">{{v.logradouro}} {{v.rua}} {{v.numero}}</span>
+          </div>
+
+          <div>
+            <div><i class="fa fa-car m-r-xs"></i>{{v.placa|placa}} {{v.modelo}} {{v.cor}}</div>
+            <div class="m-t-xs">
+                <span>Entrada:<span>
+                <span>{{fromNow(v.data_visita, 'YYYY-MM-DD HH:mm:SS')}}</span>
+            </div>
+            <div>
+                <span>Saída:<span>
+                <span>{{fromNow(v.data_saida, 'YYYY-MM-DD HH:mm:SS')}}</span>
+            </div>            
+          </div>
+        </div>
+    </div>
+
+
+    <table class="hidden-xs table table-hover table-bordered table-striped pdf-print" 
+           ng-show="visitas.length">
+    <thead>
+    <tr>
+      <th class="text-center">Placa</th>
+      <th class="text-center">Marca</th>
+      <th class="text-center">Modelo</th>
+      <th class="text-center">Cor</th>
+      <th class="text-center">Unidade</th>
+      <th class="text-center">Morador</th>
+      <th class="text-center">Data de Entrada</th>
+      <th class="text-center">Data de Saída</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="v in visitas|filter:ft|orderBy:['data_saida', '-data_visita']" 
+          ng-click="visualizarVisita($event, v)">
+        <td class="text-center vmiddle">{{v.placa}}</td>
+        <td class="text-center vmiddle">{{v.marca}}</td>
+        <td class="text-center vmiddle">{{v.modelo}}</td>
+        <td class="text-center vmiddle">{{v.cor}}</td>
+        <td class="text-center vmiddle">{{v.logradouro}} {{v.rua}} {{v.numero}}</td>
+        <td class="text-center vmiddle">{{v.nome}}</td>
+        <td class="text-center vmiddle">
+          <span>
+            {{v.data_visita| dateFormat : 'YYYY-MM-DD HH:mm:SS' : 'DD/MM/YYYY HH:mm:SS'}}
+          </span>
+          <span>( {{fromNow(v.data_visita, 'YYYY-MM-DD HH:mm:SS')}} )</span>
+        </td>
+        <td class="text-center vmiddle">
+          <span ng-show="v.data_saida">
+            {{v.data_saida| dateFormat : 'YYYY-MM-DD HH:mm:SS' : 'DD/MM/YYYY HH:mm:SS'}}
+          </span>
+          <span ng-show="v.data_saida">
+            ( {{fromNow(v.data_saida, 'YYYY-MM-DD HH:mm:SS')}} )
+          </span>
+          <button ng-hide="v.data_saida" 
+                  class="btn btn-sm btn-primary" 
+                  ng-click="registrarSaida($event, v.placa)">
+            <i class="fa fa-car m-r-xs"></i>
+            Registrar Saída
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+
+    </div>
+  </div>
+</div>

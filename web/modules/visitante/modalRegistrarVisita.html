@@ -1,0 +1,306 @@
+  <script type="text/ng-template" id="modalRegistrarVisita.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Configurações de Visita</h4>
+        <span style="margin-top: -21px;" class="text-primary text-center pull-right" ng-show="tab1.active && visitante.id || tab2.active && visitante.id">
+          <i class="fa fa-male m-r-xs"></i> {{visitante.nome}}
+        </span>
+    </div>
+    <div class="modal-body">
+      <tabset justified="true">
+
+        <tab class="tab-container" active="tab1.active">
+          <tab-heading tooltip="atalho: ctrl + ←">Registrar Visita</tab-heading>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <p class="text-muted text-center">
+                <i class="fa fa-question-circle m-r-xs"></i>
+                Utilize os campos abaixo para procurar um visitante que já acessou o condomínio.
+              </p>
+              <form name="form" class="form-group form-validation text-center">
+                <div class="form-group col-xs-12 col-lg-6">                 
+                  <input type="text" 
+                         autocomplete="off"
+                         name="cpf" 
+                         id="cpf1"
+                         autofocus
+                         class="form-control input-lg"   
+                         maxlength="14" 
+                         placeholder="CPF"
+                         ng-model="visitante.cpf" 
+                         mask="999.999.999-99"
+                         clean="true"
+                         restrict="reject"/>
+                </div>
+                <div class="form-group col-xs-12 col-lg-6">
+                  <input type="text" 
+                         autocomplete="off"
+                         name="rg" 
+                         class="form-control input-lg"  
+                         placeholder="Registro de Identidade"
+                         ng-model="visitante.rg" />
+                </div>
+                <div class="form-group col-xs-12">
+                  <input type="text" 
+                         autocomplete="off"
+                         name="nome" 
+                         class="form-control input-lg"  
+                         placeholder="Nome completo"
+                         ng-model="visitante.nome" />
+                </div>
+
+                <div ng-show="visitantes.length && !ngModel">
+                  <label class="text-muted"><i class="fa fa-question-circle m-r-xs"></i>Selecione o vistante, caso não o encontre, <span class="text-primary pointer" ng-click="setTab2()">cadastre-o no sistema.</span></label>
+                  <table class="table table-hover table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th class="text-center vmiddle">&nbsp;</th>
+                      <th class="text-center vmiddle">Nome</th>
+                      <th class="text-center vmiddle">CPF / Documento</th>
+                      <th class="text-center vmiddle">Foto</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="m in visitantes" 
+                          ng-click="setVisitantes(m)">
+                        <td class="text-center vmiddle">
+                          <span ng-show="m.id == visitante.id">
+                            <i class="fa fa-check-circle fa-1-5x text-primary"></i>
+                          </span>
+                          <span ng-show="m.id != visitante.id">
+                            <i class="fa fa-circle-thin fa-1-5x text-default"></i>
+                          </span>
+                        </td>
+                        <td class="vmiddle text-center">{{m.nome}}</td>
+                        <td class="vmiddle text-center">
+                          <span ng-show="m.cpf">{{m.cpf|cpf}}</span> 
+                          <span ng-show="m.documento">{{m.documento}}</span>
+                        </td>
+                        <td class="vmiddle text-center">
+                          <fotoview klass="'thumb'" ng-model="m.fotoVisitante" path-view="'gallery/visitante'"></fotoview>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>                
+
+                <div class="clearfix"></div>
+
+                <accordion close-others="oneAtATime" ng-show="visitante.id">
+
+                  <accordion-group is-open="unidade.open">
+                      <accordion-heading>
+                          <i ng-class="{'fa fa-home m-r-xs':!visitante.unidade, 'fa fa-check-circle':visitante.unidade}"></i>
+                          <span>Selecionar a unidade a ser visitada</span>
+                          <i class="pull-right glyphicon" 
+                           ng-class="{'glyphicon-chevron-down': unidade.open, 'glyphicon-chevron-right': !unidade.open}">
+                          </i>
+                      </accordion-heading>
+                      <div ng-show="unidade.open">
+                        <div class="form-group col-xs-12" ng-show="visitante.id"> 
+                            <label>Unidade a ser visitada</label>    
+                            <busca-de-endereco 
+                              ng-model="visitante.unidade"
+                              name="unidade" ng-required="unidade.open">
+                            </busca-de-endereco>
+                        </div>
+                      </div>
+                  </accordion-group>
+
+                  <div ng-show="visitante.unidade.id">
+                    <accordion-group is-open="morador.open">
+                        <accordion-heading>
+                            <i ng-class="{'fa fa-male m-r-xs':!visitante.morador, 'fa fa-check-circle':visitante.morador}"></i>
+                            <span>Selecionar o morador</span>
+                            <i class="pull-right glyphicon" 
+                             ng-class="{'glyphicon-chevron-down': morador.open, 'glyphicon-chevron-right': !morador.open}">
+                            </i>
+                        </accordion-heading>
+                        <div ng-show="morador.open">
+                          <div class="form-group col-xs-12"> 
+                            <label>Morador</label>
+                            <busca-de-morador-por-endereco 
+                              ng-model="visitante.morador"
+                              id-unidade="visitante.unidade.id">
+                            </busca-de-morador-por-endereco>
+                          </div>
+                        </div>
+                    </accordion-group>
+                  </div>
+                  <accordion-group is-open="obs.open">
+                      <accordion-heading>
+                          <i ng-class="{'fa fa-list m-r-xs':!visitante.observacoes, 'fa fa-check-circle':visitante.observacoes}"></i>
+                          <span>Inserir uma observação</span>
+                          <i class="pull-right glyphicon" 
+                           ng-class="{'glyphicon-chevron-down': obs.open, 'glyphicon-chevron-right': !obs.open}">
+                          </i>
+                      </accordion-heading>
+                      <div ng-show="obs.open">
+                        <label>Observação</label>
+                        <textarea class="form-control" ng-model="visitante.observacoes" ng-required="obs.open"></textarea>
+                      </div>
+                  </accordion-group>
+                </accordion>
+
+                <div class="form-group col-xs-12 col-lg-4 col-lg-offset-8">
+                  <button class="btn btn-primary btn-sm col-xs-8 pull-right" 
+                          ng-click="registrarVisita()"
+                          ng-disabled="form.$invalid">
+                  <i class="fa fa-plus m-r-xs"></i>Registrar Entrada/Saida</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </tab>
+
+        <tab active="tab2.active">
+          <tab-heading tooltip="atalho: ctrl + ↑">Cadastrar Visitante</tab-heading>
+          <div class="panel panel-default" ng-if="tab2.active">
+            <div class="panel-body">
+              <form name="form" class="form-group form-validation text-center">
+                <div class="form-group col-xs-12 col-lg-12 text-center"> 
+                  <accordion close-others="oneAtATime">
+                  <accordion-group is-open="foto.open">
+                      <accordion-heading>
+                          <i ng-class="{'fa fa-camera m-r-xs':!visitante.foto, 'fa fa-check-circle':visitante.foto}"></i>
+                          <span>Tirar uma fotografia do visitante</span>
+                          <i class="pull-right glyphicon" 
+                           ng-class="{'glyphicon-chevron-down': foto.open, 'glyphicon-chevron-right': !foto.open}">
+                          </i>
+                      </accordion-heading>
+                      <div ng-if="foto.open">
+                        <div class="col-xs-12 col-md-8 col-lg-6 text-center col-md-offset-2 col-lg-offset-3 centered">
+                          <fotocam ng-model="visitante.fotoVisitante" 
+                                 path-save="'../../gallery/visitante/'"
+                                 path-view="'gallery/visitante/'"
+                                 filename="'visitante'">
+                          </fotocam>
+                        </div>
+                      </div>
+                  </accordion-group>
+                  <!--<accordion-group is-open="date.open">
+                      <accordion-heading>
+                          <i ng-class="{'fa fa-calendar m-r-xs':!visitante.foto, 'fa fa-check-circle':visitante.foto}"></i>
+                          <span>Definir uma data de acesso liberado</span>
+                          <i class="pull-right glyphicon" 
+                           ng-class="{'glyphicon-chevron-down': date.open, 'glyphicon-chevron-right': !date.open}">
+                          </i>
+                      </accordion-heading>
+                      <div ng-show="date.open">
+
+                        <div class="col-md-6">
+                            <p class="input-group">
+                              <input type="date" class="form-control" datepicker-popup ng-model="dt" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                              </span>
+                            </p>
+                        </div>
+
+                      </div>
+                  </accordion-group>-->
+                  </accordion>
+                </div>
+
+                
+
+                <div class="form-group form-validation col-xs-12 col-lg-6"> 
+                    <label>CPF</label>                
+                    <input type="text" 
+                           autocomplete="off"
+                           name="cpf" 
+                           id="cpf2"
+                           class="form-control input-lg"   
+                           ng-model-options="{updateOn:'blur'}"
+                           maxlength="14" 
+                           placeholder="CPF"
+                           ng-model="visitante.cpf" 
+                           mask="999.999.999-99"
+                           clean="true"
+                           restrict="reject"
+                           ng-required="!visitante.rg"
+                           ng-blur="validaUsuario()" />
+                  </div>
+                  <div class="form-group col-xs-12 col-lg-6"> 
+                    <label>RG</label>                
+                    <input type="text" 
+                         autocomplete="off"
+                         name="rg" 
+                         class="form-control input-lg"  
+                         placeholder="Registro de Identidade"
+                         ng-required="!visitante.cpf"
+                         ng-model="visitante.rg" />
+                  </div>
+                  <div class="form-group col-xs-12 col-lg-6"> 
+                    <label>Telefone</label>                
+                    <input type="text" 
+                         autocomplete="off"
+                         name="telefone" 
+                         class="form-control input-lg"  
+                         placeholder="Telefone com DDD"
+                         mask="(99) 99999?-9999"
+                         clean="true"
+                         ng-model="visitante.telefone" />
+                  </div>
+                  <div class="form-group col-xs-12 col-lg-6"> 
+                    <label>Celular</label>                
+                    <input type="text" 
+                         autocomplete="off"
+                         name="telefone" 
+                         class="form-control input-lg"  
+                         placeholder="Celular com DDD"
+                         mask="(99) 99999?-9999"
+                         clean="true"
+                         ng-model="visitante.celular" />
+                  </div>
+                  <div class="form-group col-xs-12 col-lg-12"> 
+                    <label>Nome completo</label>                
+                    <input type="text" 
+                         autocomplete="off"
+                         name="nome" 
+                         class="form-control input-lg"  
+                         placeholder="Nome completo"
+                         required
+                         ng-model="visitante.nome" />
+                  </div>
+                  
+                  <div class="clearfix"></div>
+                  <div class="m-t-md"></div>
+
+                  <hr/>
+
+                  <button class="btn btn-primary btn-md pull-right" type="submit"
+                        ng-click="save()" ng-disabled="form.$invalid">
+                    <i class="fa fa-male m-r-xs"></i> 
+                    <span ng-show="!visitante.id">Cadastrar</span>
+                    <span ng-show="visitante.id">Editar</span>
+                  </button>
+                  
+              </form>         
+            </div>
+          </div>
+        </tab>
+
+        <tab active="tab3.active">
+          <tab-heading tooltip="atalho: ctrl + →">Acesso por QRCode</tab-heading>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="col-xs-12 col-md-8 col-lg-6 text-center col-md-offset-2 col-lg-offset-3 centered">
+                <qrcode-reader ng-model="reader" show="tab3.active" call="onQRCodeReader(reader)"></qrcode-reader>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+      </tabset>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="limparInformacoes()" ng-show="visitante.id" 
+                tooltip="atalho: ctrl + x">
+          <i class="fa fa-minus-circle m-r-xs"></i>Limpar Informações do Visitante
+        </button>
+        <button class="btn btn-default" ng-click="close()">
+        	Fechar
+        </button>
+    </div>
+</script>

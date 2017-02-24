@@ -1,0 +1,57 @@
+<!-- list --> 
+<ul class="nav text-center">
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span>Nevegação</span>
+  </li>
+
+  <li ng-class="{ active: $state.includes('app.painel')}">
+    <a ui-sref="app.grafico">
+      <i class="fa fa-cog size-xs text-bordo"></i>
+      <span>Painel de Controle</span>
+    </a>
+  </li>
+
+  <li ng-class="{'active':$state.includes('app.user') || $state.includes('app.userform')}">
+    <a ui-sref="app.user">
+      <i class="fa fa-users size-xs text-brown"></i>
+      <span>Moderar Usuários</span>
+    </a>
+  </li>
+
+  <li ng-class="{'active':$state.includes('app.cadastros') || $state.includes('app.cadastrosform')}">
+    <a ui-sref="app.cadastros">
+      <i class="fa fa-building size-xs text-success"></i>
+      <span>Gerenciar Fornecedor</span>
+    </a>
+  </li>
+
+  <li ng-class="{active:$state.includes('app.categorias')}" style="display: none;">
+    <a ui-sref="app.categorias">
+      <i class="fa fa-tags size-xs text-orange"></i>
+      <span>Gerenciar Categorias</span>
+    </a>
+  </li>  
+
+  <li ng-class="{active:$state.includes('app.subcategoria')}">
+    <a ui-sref="app.subcategoria">
+      <i class="fa fa-tags size-xs text-primary-dker"></i>
+      <span>Gerenciar Sub-Categorias</span>
+    </a>
+  </li>    
+ 
+   <li ng-class="{active:$state.includes('app.propaganda')}">
+    <a ui-sref="app.propaganda">
+      <i class="fa fa-newspaper-o size-xs text-primary"></i>
+      <span>Gerenciar Propagandas</span>
+    </a>
+  </li>
+
+  <li ng-class="{active:$state.includes('app.avaliacoes')}">
+    <a ui-sref="app.avaliacoes">
+      <i class="fa fa-bullhorn size-xs text-bordo"></i>
+      <span>Gerenciar Avaliações</span>
+    </a>
+  </li>
+  
+</ul>
+<!-- / list -->

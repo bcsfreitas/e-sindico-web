@@ -1,0 +1,41 @@
+<div class="bg-light lter b-b wrapper-lg">
+    <h1 class="m-n font-thin h3">Moderar Usuários
+
+aasdsa
+    </h1>
+            <button type="submit" class="btn btn-primary btn-rounded pull-right" ng-disabled="form.$invalid" ng-click="save()"> 
+                <span ng-hide="usuario.id"><i class="fa fa-save m-r-sm"/>Salvar</span> 
+            </button>
+</div>
+
+<div class="wrapper-md">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <p>Lista de Usuários</p>
+        </div>
+        <div class="panel-body"> 
+
+        </div>
+    </div>
+
+<!--<div class="line line-dashed b-b line-lg pull-in"></div>-->
+
+        <div class="clearfix"></div>
+        <div class="panel-body">
+        <footer class="panel-footer text-right bg-light lter">
+            <button 
+                ng-show="usuario.id"
+                type="submit" 
+                class="btn btn-danger btn-rounded pull-left" 
+                ng-click="delete()">
+                <span><i class="fa fa-trash m-r-sm"></i>Excluir</span>
+            </button>
+            <button type="submit" class="btn btn-primary btn-rounded pull-right" ng-disabled="form.$invalid" ng-click="save()"> 
+                <span ng-hide="usuario.id"><i class="fa fa-save m-r-sm"/>Salvar</span> 
+            </button>
+        </footer>
+        </div>
+
+    </div>    
+</div>

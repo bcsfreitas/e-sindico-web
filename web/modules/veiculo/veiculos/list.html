@@ -1,0 +1,91 @@
+<div class="bg-light lter b-b wrapper-md">
+  <div ng-include="'./modules/includes/menuContextual.html'"></div>
+  <h1 class="m-n font-thin h3">Veículos</h1>
+</div>
+<div class="wrapper-md">
+
+		<div ng-show="!veiculos.length">
+			Sem veiculo cadastrada no sistema.
+		</div>
+		<form class="form-inline hidden-print m-t-sm" ng-show="veiculos.length">
+		  <p>Utilize as opções abaixo, para filtrar os veículos na tabela de dados...</p>
+		  
+		  <div class="form-group">
+		    <label for="placa" class="sr-only">Placa</label>
+		    <input type="text" class="form-control" id="placa" 
+		           placeholder="Placa" 
+		           ng-model="ft.placa">
+		  </div>
+		  <div class="form-group">
+		    <label for="marca" class="sr-only">Marca</label>
+		    <input type="text" class="form-control" id="marca" 
+		           placeholder="Marca"
+		           ng-model="ft.marca">
+		  </div>
+		  <div class="form-group">
+		    <label for="modelo" class="sr-only">Modelo</label>
+		    <input type="text" class="form-control" id="modelo" 
+		           placeholder="Modelo"
+		           ng-model="ft.modelo">
+		  </div>
+		  <div class="form-group">
+		    <label for="cor" class="sr-only">Cor</label>
+		    <input type="text" class="form-control" id="cor" 
+		           placeholder="Cor" 
+		           ng-model="ft.cor">
+		  </div>
+		  <div class="form-group">
+		    <label for="ano" class="sr-only">Ano</label>
+		    <input type="text" class="form-control" id="ano" 
+		           placeholder="Ano" 
+		           ng-model="ft.ano">
+		  </div>
+		  <div class="form-group">
+		    <label for="cidade" class="sr-only">Cidade</label>
+		    <input type="text" class="form-control" id="cidade" 
+		           placeholder="UF" 
+		           ng-model="ft.cidade">
+		  </div>		  
+		  <div class="form-group">
+		    <label for="uf" class="sr-only">UF</label>
+		    <input type="text" class="form-control" id="uf" 
+		           placeholder="UF" 
+		           ng-model="ft.uf">
+		  </div>		  
+		</form>
+		<div class="clearfix m-t-md"></div>
+		<table class="table table-hover table-bordered table-striped pdf-print" 
+		       ng-show="veiculos.length">
+		<thead>
+		<tr>
+		  <th class="text-center">Placa</th>
+		  <th class="text-center">Marca</th>
+		  <th class="text-center">Modelo</th>
+		  <th class="text-center">Cor</th>
+		  <th class="text-center">Ano</th>
+		  <th class="text-center">Ano/Modelo</th>
+		  <th class="text-center">Cidade</th>
+		  <th class="text-center">UF</th>
+		  <th class="text-center">Cadastro</th>
+		</tr>
+		</thead>
+		<tbody>
+		  <tr class="pointer" 
+		      ng-repeat="v in veiculos|filter:ft|orderBy:'-data_cadastro'"
+		      ng-click="form(v.placa)">
+		    <td class="text-center">{{v.placa}}</td>
+		    <td class="text-center">{{v.marca}}</td>
+		    <td class="text-center">{{v.modelo}}</td>
+		    <td class="text-center">{{v.cor}}</td>
+		    <td class="text-center">{{v.ano}}</td>
+		    <td class="text-center">{{v.modelo_ano}}</td>
+		    <td class="text-center">{{v.municipio}}</td>
+		    <td class="text-center">{{v.uf}}</td>
+		    <td class="text-center">
+		    	<span>{{v.data_cadastro | dateFormat : 'YYYY-MM-DD HH:mm:SS' : 'DD/MM/YYYY HH:mm'}}</span>
+		    </td>
+		  </tr>
+		</tbody>
+		</table>
+	</div>
+</div>

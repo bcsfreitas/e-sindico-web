@@ -1,0 +1,129 @@
+<div class="container w-xxl w-auto-xs" 
+     ng-controller="signinCtrl" 
+     ng-init="app.settings.container = false;">
+  <div class="col-md-12 text-center">
+    <img ng-src="img/logo_200.png" width="300"/>
+  </div>
+  <div class="m-b-sm">
+    <div class="text-center">
+      <strong>&nbsp;</strong>
+    </div>
+    <form name="form" class="form-validation" ng-hide="alterPassGo">
+      <div class="text-danger wrapper text-center" ng-show="authError">
+          <span>
+                <i class="fa fa-exclamation-triangle n-r-xs"></i> {{authError}}
+          </span>
+      </div>      
+      <div class="text-primary wrapper text-center" ng-show="spin">
+        <i class="fa fa-spinner fa-spin m-r-xs"></i> 
+        Verificando informações... 
+      </div>
+      <div class="list-group list-group-sm">
+        <div class="list-group-item">
+          <input type="email" 
+                 autocomplete="off"
+                 autofocus
+                 required
+                 placeholder="E-mail" 
+                 name="email" 
+                 id="email"
+                 popover-placement="bottom" 
+                 popover="Preencha seu endereço de e-mail"
+                 popover-enable="form.email.$dirty && form.email.$invalid" 
+                 class="form-control no-border2" 
+                 ng-model="user.email" 
+                 clean="true"
+                 restrict="reject"
+                 required>
+        </div>
+        <div class="list-group-item">
+           <input type="password" 
+                  autocomplete="off"
+                  placeholder="Senha" 
+                  name="pass"
+                  class="form-control no-border2" 
+                  ng-model="user.pass"
+                  required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-lg btn-success btn-block" 
+              ng-click="login()" 
+              ng-disabled='form.$invalid'>Entrar</button>
+      <!-- <div class="line line-dashed"></div> -->
+      <p class="text-center m-t-xs text-primary pointer" ng-click="alterPassGo=true"><small>Alterar sua senha?</small></p>
+      <!-- <a ui-sref="access.signup" class="btn btn-lg btn-default btn-block">Create an account</a> -->
+    </form>
+
+    <form name="form2" class="form-validation " ng-show="alterPassGo">    
+      <div class="text-danger wrapper text-center" ng-show="authError">
+          <span>
+                <i class="fa fa-exclamation-triangle n-r-xs"></i> {{authError}}
+          </span>
+      </div>     
+      <div class="text-success wrapper text-center" ng-show="messageSuccess">
+          <span>
+                <i class="fa fa-info n-r-xs"></i> {{messageSuccess}}
+          </span>
+      </div>  
+
+      <div class="text-primary wrapper text-center" ng-show="spin">
+        <i class="fa fa-spinner fa-spin m-r-xs"></i> 
+        Verificando informações... 
+      </div>
+      <div class="list-group list-group-sm">
+        <div class="list-group-item">
+          <input type="email" 
+                 autocomplete="off"
+                 autofocus
+                 required
+                 placeholder="E-mail" 
+                 name="email" 
+                 id="email"
+                 popover-placement="bottom" 
+                 popover="Preencha com seu e-mail!"
+                 popover-enable="form.email.$dirty && form.email.$invalid" 
+                 class="form-control no-border2" 
+                 ng-model="user.email" 
+                 required>
+        </div>
+        <div class="list-group-item">
+           <input type="password" 
+                  autocomplete="off"
+                  placeholder="Senha anterior" 
+                  name="pass"
+                  class="form-control no-border2" 
+                  ng-model="user.passBefore"
+                  required>
+        </div>
+        <div class="list-group-item">
+           <input type="password" 
+                  autocomplete="off"
+                  placeholder="Senha nova" 
+                  name="pass"
+                  class="form-control no-border2" 
+                  ng-model="user.passNew"
+                  required>
+        </div>
+        <div class="list-group-item">
+           <input type="password" 
+                  autocomplete="off"
+                  placeholder="Confirme a senha nova" 
+                  name="pass"
+                  class="form-control no-border2" 
+                  ng-model="user.passNewConfirm"
+                  required>
+        </div>   
+      </div>
+    
+      <button type="submit" class="btn btn-lg btn-success btn-block" 
+              ng-click="alterPass()" 
+              ng-disabled='form2.$invalid'>Solicitar alteração de Senha</button>
+      <!-- <div class="line line-dashed"></div> -->
+      <p class="text-center m-t-xs text-primary pointer" ng-click="alterPassGo=false"><small>Gostaria de tentar acessar?</small></p>
+      <!-- <a ui-sref="access.signup" class="btn btn-lg btn-default btn-block">Create an account</a> -->
+    </form>
+
+  </div>
+
+</div>
+

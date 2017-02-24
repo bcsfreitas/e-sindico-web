@@ -1,0 +1,105 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">Gerenciar Avaliações
+    </h1>
+
+</div>
+
+<div class="wrapper-md">
+
+    <div class="panel panel-default">
+        <div class="panel-body"> 
+
+        <div class="form-group">
+
+                
+                <div class="col-lg-6 col-lg-offset-3 text-center">
+
+                    <div class="form-group col-lg-4">
+                        <label>Nome</label> 
+                        <input type="text" autocomplete="off" name="descicaoAnexo" class="form-control ng-pristine ng-valid ng-touched" placeholder="Buscar por nome" ng-model="fornecedor.descicaoAnexo">
+                    </div>
+
+                    <div class="form-group col-lg-4 col-offset-4">
+                        <label>Situação</label> 
+                        <select class="form-control">
+                            <option value="Situação">Situação</option>
+                        </select>
+                    </div> 
+
+                    <div class="form-group col-lg-4">
+                        <label>Data</label> 
+                        <input type="text" autocomplete="off" name="descicaoAnexo" class="form-control ng-pristine ng-valid ng-touched" placeholder="Buscar por data" ng-model="fornecedor.descicaoAnexo">
+                    </div>                    
+
+                    <button type="button" class="btn btn-primary btn-rounded pull-right" ng-click="adicionaAnexo()">
+                            <span><i class="fa fa-search m-r-sm"></i>Buscar</span>
+                    </button>
+
+                </div>                            
+        
+                <div class="clearfix"></div>
+
+                <div class="m-t-lg col-lg-6 col-lg-offset-3 text-center">
+
+                    <p class="text-center">Usuários enontrados</p>
+                    <table st-table="rowCollectionBasic" class="m-t-sm table table-bordered table-striped">
+                        <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Avaliador - Data</th>
+                                    <th>Avaliação</th>
+                                    <th>Situação</th>
+                                    <th>Data</th>
+                                    <th class="text-center">Ações</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat2="row in fornecedor.documentos">
+                                <td>Ecolimpeza Serviços</td>
+                                <td>João Silva 24/07/2016</td>
+                                <td>Lorem inpsum del castsum dolor</td>
+                                <td>Publicado</td>
+                                <td>14/01/2016 10h55</td>
+                                <td class="text-center">
+                                    <button class="btn btn-info"><i class="fa fa-close m-r-xs"></i> Desbloquear</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>  
+
+            <div class="clearfix"></div>
+
+               <footer class="panel-footer" ng-show="results.items.length">
+                <div class="row text-center">
+                    <p class="text-muted">Total de registros: {{results.totalData}}, registros da página: {{results.totalByPage}}</p>
+                    <nav ng-show="results.items">
+                        <ul class="pagination">
+                            <li ng-class="{'disabled':results.pagePrevious==null}">
+                                <a ng-show="results.pagePrevious!=null" 
+                                   ui-sref="app.empresa.post({companyId: params.companyId, pageId: results.pagePrevious})">
+                                    <span>&laquo;</span>
+                                </a>
+                                <span ng-show="results.pagePrevious==null">&laquo;</span>
+                            </li>
+                            <li ng-repeat="p in [] | range:results.totalPages" 
+                                ng-class="{'active':results.current==p}">
+                                <a ui-sref="app.empresa.post({companyId: params.companyId, pageId: p})">{{p}}</a>
+                            </li>
+                            <li ng-class="{'disabled':results.pageNext==null}">
+                                <a ng-show="results.pageNext!=null" 
+                                   ui-sref="app.empresa.post({companyId: params.companyId, pageId: results.pageNext})">
+                                    <span>&raquo;</span>
+                                </a>
+                                <span ng-show="results.pageNext==null">&raquo;</span>
+                            </li>           
+                        </ul>
+                    </nav>  
+                </div>
+              </footer>    
+
+        </div>
+    </div> 
+</div>

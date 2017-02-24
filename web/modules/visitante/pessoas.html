@@ -1,0 +1,65 @@
+<div class="bg-light lter b-b wrapper-md">
+   <div ng-include="'./modules/includes/menuContextual.html'"></div>
+  <h1 class="m-n font-thin h3">Pessoas</h1>
+  <small class="text-muted">Listagem das informações das pessoas que visitam</small>
+</div>
+<div ng-include="'./modules/visitante/modalRegistrarVisita.html'"></div>
+<div ng-include="'./modules/visitante/modalGerarQrcode.html'"></div>
+<div class="wrapper-md">
+	<div ng-show="!pessoas.length">
+		Sem pessoas cadastradas no sistema.
+	</div>
+	<form class="form-inline hidden-print" ng-show="pessoas.length">
+	  <p>Utilize as opções abaixo, para filtrar as encomendas na tabela de dados.</p>
+	  <div class="form-group">
+	    <label for="nome" class="sr-only">Nome</label>
+	    <input type="text" class="form-control" id="nome" 
+	           placeholder="Nome" 
+	           ng-model="ft.nome" />
+	  </div>
+	  <div class="form-group">
+	    <label for="cpf" class="sr-only">CPF</label>
+	    <input type="text" class="form-control" id="cpf" 
+	           placeholder="CPF" 
+	           ng-model="ft.cpf" />
+	  </div>
+	  <div class="form-group">
+	    <label for="documento" class="sr-only">Documento</label>
+	    <input type="text" class="form-control" id="n" 
+	           placeholder="Documento" 
+	           ng-model="ft.documento" />
+	  </div>
+	</form>
+	<div class="clearfix m-t-md"></div>
+	<table class="table table-bordered table-striped pdf-print" ng-show="pessoas.length">
+		<thead>
+		<tr>
+		  <th class="text-center">QRCode</th>
+		  <th class="text-center">Nome</th>
+		  <th class="text-center">CPF	</th>
+		  <th class="text-center">Documento</th>
+		  <th class="text-center">Celular</th>
+		  <th class="text-center">Telefone</th>
+		  <!-- <th class="text-center">Data de Entrada</th>
+		  <th class="text-center">Data de Saída</th> -->
+		</tr>
+		</thead>
+		<tbody>
+		  <tr class="pointer" ng-repeat="p in pessoas | filter:ft" ng-click="form($event, p)">
+		  	<td class="text-center vmiddle" 
+		  	    ng-click="gerarQrCode($event, p)"><i class="fa fa-qrcode"></i></td>
+		    <td class="text-center">{{p.nome}}</td>
+		    <td class="text-center">{{p.cpf}}</td>
+		    <td class="text-center">{{p.documento}}</td>
+		    <td class="text-center"><span ng-show="p.celular">{{p.celular|telefone}}</span></td>
+		    <td class="text-center"><span ng-show="p.telefone">{{p.telefone|telefone}}</span></td>
+		    <td class="text-center">
+		    	<fotoview klass="'text-center col-xs-4 col-xs-offset-2 col-sm-4 col-sm-offset-1 col-lg-6 col-lg-offset-2 thumb'" ng-model="p.fotoVisitante" path-view="'gallery/visitante'"></fotoview>
+		    </td>
+		    <!-- <td class="text-center">{{p.dt_inicio_limite_acesso | dateFormat : 'YYYY/MM/DD':'DD/MM/YYYY'}}</td>
+		    <td class="text-center">{{p.dt_final_limite_acesso | dateFormat : 'YYYY/MM/DD':'DD/MM/YYYY'}}</td> -->
+		  </tr>
+		</tbody>
+	</table>
+</div>
+</div>

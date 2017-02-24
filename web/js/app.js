@@ -1,0 +1,25 @@
+'use strict';
+
+angular.module('app', [
+    'ngAnimate',
+    'ngCookies',
+    'ngResource',
+    'ngSanitize',
+    'ngMask',
+    'ngTouch',
+    'ngStorage',
+    'ui.router',
+    'ui.bootstrap',
+    'ui.utils',
+    'ui.load',
+    'ui.jq',
+    'oc.lazyLoad',
+    'pascalprecht.translate',
+    'angular.filter',
+    'cfp.hotkeys',
+    'toaster',
+    'fotocam',
+    'qrcodereader',
+    'buscaDeEndereco',
+    'buscaDeMorador',
+]);

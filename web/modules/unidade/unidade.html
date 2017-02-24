@@ -1,0 +1,22 @@
+<div ng-controller="unidadeCtrl" ng-init="show=1">
+	<div class="bg-light lter b-b wrapper-md">
+
+	   <button type="button" class="btn btn-default btn-addon pull-right m-t-n-xs" 
+	          ui-toggle-class="show" target="#aside" ng-click="form()" ng-show="show==1">
+	      <i class="fa fa-plus"></i> Cadastrar Unidade
+	   </button>
+
+		<button type="button" class="btn btn-default btn-addon pull-right m-t-n-xs" 
+	          ui-toggle-class="show" target="#aside" ng-click="list()" ng-show="show==2">
+	      <i class="fa fa-list"></i> Listar Unidades
+	   </button>
+
+	  <h1 class="m-n font-thin h3">Unidades</h1>
+	</div>
+	<div class="wrapper-md">
+
+		<div mg-show="show==2" ng-include="'./modules/unidade/form.html'"></div>
+		<div ng-show="show==1" ng-include="'./modules/unidade/list.html'"></div>
+
+	</div>
+</div>

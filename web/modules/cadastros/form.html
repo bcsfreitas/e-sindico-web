@@ -1,0 +1,377 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">Fornecedor
+        <button type="button" class="btn btn-primary btn-rounded pull-right" ui-sref="app.cadastros"> 
+            <span><i class="fa fa-list m-r-sm"/>Listar</span> 
+        </button>    
+    </h1>
+</div>
+
+<div class="wrapper-md">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          Dados de Acesso
+        </div>
+        <div class="panel-body">
+            <form class="row form-no-validation" name="form" role="form" id="form">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>E-mail</label> 
+                        <span class="text-danger" ng-show="form.email.$error.$required"> O Campo e-mail é obrigatório</span> 
+                        <input type="text" autocomplete="off" name="email" class="form-control" placeholder="E-mail" ng-model="fornecedor.tx_email">
+                    </div>
+
+                    <!-- mask="(99) 99999?-9999" clean="true"-->
+                    <div class="form-group" ng-show="validateEmail">
+                        <label>Contato</label> 
+                        <span class="text-danger" ng-show="form.tx_nm_contato.$error.$required"> O Campo complemento é obrigatório</span> 
+                        <input type="text" autocomplete="off" name="tx_nm_contato" class="form-control" placeholder="Contato" ng-model="fornecedor.tx_nm_contato">
+                    </div> 
+                </div>
+                <div class="col-lg-6" ng-show="validateEmail">
+                    <div class="form-group">
+                        <label>Senha</label> 
+                        <span class="text-danger" ng-show="form.senha.$error.$required"> O Campo senha é obrigatório</span> 
+                        <input type="password" autocomplete="off" name="senha" class="form-control" placeholder="Senha" ng-model="fornecedor.tx_senha"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Confirme a senha</label> 
+                        <span class="text-danger" ng-show="form.senhaConfirma.$error.$required"> O Campo confirme a senha é obrigatório</span> 
+                        <input type="password" autocomplete="off" name="senhaConfirma" class="form-control" placeholder="Confirme a senha" ng-model="fornecedor.tx_senha_confirma"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          Dados da Empresa
+        </div>
+        <div class="panel-body"> 
+
+            <div class="col-lg-12">
+      
+                <input type="hidden" ng-model="fornecedor.tx_status"/> 
+                <div class="form-group">
+                    <label>CEP</label> 
+                    <span class="text-danger" ng-show="form.tx_cep.$error.$required"> O Campo cep é obrigatório</span> 
+                    <input type="text" autocomplete="off" mask="99999-999" clean="true" name="tx_cep" class="form-control input-sm" 
+                       placeholder="CEP" ng-model="fornecedor.endereco.tx_cep">
+                </div> 
+
+                <div class="form-group" ng-show="validateCep">
+                    <label>Logradouro</label> 
+                    <span class="text-danger" ng-show="form.tx_logradouro.$error.$required"> O Campo nome logradouro é obrigatório</span> 
+                    <input type="text" autocomplete="off" name="tx_logradouro" class="form-control" 
+                       placeholder="Nome fantasia" ng-model="fornecedor.endereco.tx_logradouro">
+                </div> 
+
+                <div class="form-group" ng-show="validateCep">
+                    <label>Complemento</label> 
+                    <span class="text-danger" ng-show="form.tx_complemento.$error.$required"> O Campo complemento é obrigatório</span> 
+                    <input type="text" autocomplete="off" name="tx_complemento" class="form-control" 
+                       placeholder="Complemento, Casa dos Fundos" ng-model="fornecedor.endereco.tx_complemento">
+                </div>   
+                                           
+                <div class="form-group" ng-show="validateCep">
+                    <label>Bairro</label> 
+                    <span class="text-danger" ng-show="form.cep.$error.$required"> O Campo bairro é obrigatório</span> 
+                    <input type="text" autocomplete="off" name="tx_bairro" class="form-control" placeholder="Barro" ng-model="fornecedor.endereco.tx_bairro">
+                </div>                                 
+
+                <div class="form-group" ng-show="validateCep">
+                    <label>Cidade</label> 
+                    <span class="text-danger" ng-show="form.tx_cidade.$error.$required"> O Campo cidade é obrigatório</span> 
+                    <input type="text" autocomplete="off" name="tx_cidade" class="form-control" placeholder="Cidade" ng-model="fornecedor.endereco.tx_cidade">
+                </div>               
+
+                <div class="form-group" ng-show="validateCep">
+                    <label>Estado (UF)</label> 
+                    <span class="text-danger" ng-show="form.tx_uf.$error.$required"> O Campo Estado (UF) é obrigatório</span> 
+                    <input type="text" autocomplete="off" name="tx_uf" class="form-control" placeholder="Estado (UF)" ng-model="fornecedor.endereco.tx_uf">
+                </div>  
+
+
+                <div class="form-group" ng-show="validateCep">
+                    <label>Razão Social</label> 
+                    <span class="text-danger" ng-show="form.tx_razao_social.$error.$required"> O Campo razão social é obrigatório</span> 
+                    <input type="text" autocomplete="off" name="tx_razao_social" class="form-control" 
+                       placeholder="Razão Social" ng-model="fornecedor.tx_razao_social">
+                </div> 
+
+                <div class="form-group">
+                    <label>Nome fantasia</label> 
+                    <span class="text-danger" ng-show="form.tx_nm_fantasia.$error.$required"> O Campo nome fantasia é obrigatório</span> 
+                    <input type="text" autocomplete="off" name="tx_nm_fantasia" class="form-control" 
+                       placeholder="Nome fantasia" ng-model="fornecedor.tx_nm_fantasia">
+                </div> 
+
+                <div class="form-group" ng-show="validateCep">
+                    <label>CNPJ</label> 
+                    <span class="text-danger" ng-show="form.nu_cnpj.$error.$required"> O Campo CNPJ é obrigatório</span> 
+                    <input type="text" autocomplete="off" name="nu_cnpj" class="form-control" 
+                       mask="99.999.999/9999-99" clean="true" placeholder="CNPJ" ng-model="fornecedor.nu_cnpj">
+                </div>   
+
+            </div>
+        </div>
+    </div>
+
+<div class="panel panel-default">
+        <div class="panel-heading">
+          Contatos
+        </div>
+        <div class="panel-body"> 
+
+            <table st-table="rowCollectionBasic" class="m-t-sm table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Contato</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{fornecedor.contatos}}
+                    <tr ng-repeat="contato in fornecedor.contatos">
+                        <td>
+                            {{contato}}            
+                        </td>
+                        <td></td>
+                        <td></span>
+                        </td>
+                        <td class="text-center">                               
+                            <button class="btn btn-danger btn-xs"><i class="fa fa-trash m-r-xs"></i> Excluir</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="btn btn-primary btn-sm" ng-click="addContato()"><i class="fa fa-plus m-r-xs"></i> Cadastrar contato</button>
+
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          Serviços Oferecidos
+        </div>
+        <div class="panel-body"> 
+            <div class="form-group" >
+
+                <div ng-class="text-center" ng-show="!categorias.length">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw text-center"></i>
+                </div>
+                
+                <div ng-show="categorias.length">
+                    <div class="col-lg-12">
+                        <p ng-show="subsSelected.length < 6">Você pode selecionar {{ (subsSelected.length - 6) * -1 }} subcategorias </p>
+                        <p ng-show="subsSelected.length == 6">Você já selecionou as 6 subcategorias </p>
+                    </div>
+
+                    <div class="col-lg-4 m-b-sm">
+                        <input type="text" autocomplete="off" class="form-control" placeholder="Filtrar" ng-model="search.tx_descricao">
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div ng-repeat="categoria in categorias">
+                        <div class="col-lg-2">
+                            <div>
+                                <h4>{{categoria.tx_descricao}}</h4>
+
+                                <div class="m-t-xs" ng-repeat="sub in categoria.subcategorias | filter:search">
+
+                                    <span class="label m-r-xs pointer" ng-click="toggleSub(sub.id_subcategoria)" 
+                                          ng-class="{'label-success':subsSelected.indexOf(sub.id_subcategoria) != -1, 
+                                                     'label-primary':subsSelected.indexOf(sub.id_subcategoria) == -1}">
+                                        {{sub.tx_descricao}} 
+                                        <span class="m-l-xs">
+                                            <i class="fa fa-close" ng-show="subsSelected.indexOf(sub.id_subcategoria) != -1"></i>
+                                            <i class="fa fa-plus" ng-show="subsSelected.indexOf(sub.id_subcategoria) == -1"></i>
+                                        </span>
+                                    </span>    
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="clearfix" ng-if="$index + 1 / 3 == 0"/>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+            </div>             
+        </div>
+    </div>    
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          Documentos da Empresa
+        </div>
+        <div class="panel-body"> 
+            <div class="form-group">
+                <label>Tipos de Serviços</label> 
+
+                <p class="text-muted">
+                Para o devido cadastro da empresa é necessário incluir os documentos que comprovem o exercício legal das atividades da empresa.
+                </p>            
+
+                <div class="row" ng-repeat="itemFile in files">
+
+                    <div class="form-group col-xs-12 col-lg-4">
+                        <label>Título</label> 
+                        <span class="text-danger" ng-show="form.documentoTitle.$error.$required"> O Campo descição do anexo é obrigatório</span> 
+                        <input type="text" autocomplete="off" name="tx_nome" class="form-control" 
+                               placeholder="Título do documento" 
+                               ng-model="itemFile.documentoTitle">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-lg-4">
+                        <label>Descição</label> 
+                        <span class="text-danger" ng-show="form.documentoDescription.$error.$required"> O Campo descição do anexo é obrigatório</span> 
+                        <input type="text" autocomplete="off" name="documentoTitle" class="form-control" 
+                               placeholder="Descrição do documento" 
+                               ng-model="itemFile.documentoDescription">
+                    </div>
+
+                    <div class="col-lg-4">
+
+                        <div class="form-group col-lg-9">
+                            <label>Documento</label> 
+                            <span class="text-danger" ng-show="form.anexo.$error.$required"> O Campo documento é obrigatório</span> 
+                            <input type="file" file-model="itemFile.image" class="form-control"/>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <i ng-click="files.remove($index)" class="fa fa-close m-r-xs pull-right"></i>
+                        </div>                        
+                    </div> 
+                </div>
+
+                <hr class="form-group m-t-lg m-b-lg" />
+        
+                <button type="button" class="btn btn-primary btn-rounded pull-right" ng-click="files.push({documentoTitle:'', documentoDescription:''})">
+                    <span><i class="fa fa-paperclip m-r-sm"></i>Novo Documento</span>
+                </button>
+
+                <div class="clearfix"></div>
+
+                <p class="text-center" ng-show="fornecedor.id_pessoa">Documentos anexados</p>
+                <table st-table="rowCollectionBasic" class="m-t-sm table table-bordered table-striped" ng-show="fornecedor.id_pessoa">
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Nome</th>
+                            <th>Tamanho</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="documento in fornecedor.documentos">
+                            <td><a class="text-info" ng-href="{{documento.tx_caminho}}" target="_blank">{{documento.tx_nome}}</a></td>
+                            <td><a class="text-info" ng-href="{{documento.tx_caminho}}" target="_blank">{{documento.tx_descricao}}</a></td>
+                            <td>
+                                <span ng-if="documento.tx_tamanho != 0">{{documento.tx_tamanho | filesize}}</span>
+                                <span ng-if="documento.tx_tamanho == 0">Aguardando salvar...</span>
+                            </td>
+                            <td class="text-center">                               
+                                <button class="btn btn-danger btn-xs" ng-click="deleteFile(documento)"><i class="fa fa-trash m-r-xs"></i> Excluir</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>             
+        </div>
+    </div> 
+
+    <!-- 
+
+      const STATUS_PENDENTE_AVALIACAO = "A";
+  const STATUS_CADASTRO_REPROVADO = "C";
+  const STATUS_PUBLICADO = "P";
+  const STATUS_PUBLICADO_DESTACADO = "D";
+  const STATUS_RETIRADO = "R";
+
+-->
+
+    <div class="panel panel-default" ng-show="fornecedor.id_pessoa && fornecedor.tx_status=='A' || fornecedor.id_pessoa && fornecedor.tx_status=='C'">
+        <div class="panel-heading">
+          Parececer sobre o cadastro
+        </div>
+        <div class="panel-body"> 
+            <div class="form-group" >
+                <p class="text-mutted">O texto descrito no parecer será enviado para o email do Fornecedor para permitir que sejam feitos os ajustes necessários ou notificiado sobre a publicação dos dados no aplicativo.</p>
+
+                <textarea ng-model="fornecedor.tx_parecer" class="form-control"></textarea>
+
+                <div class="m-t-sm">
+                    <button class="btn btn-md btn-danger" ng-click="fornecedor.tx_status='C'">
+                        <i class="fa m-r-xs" ng-class="{'fa-circle':fornecedor.tx_status!='C', 'fa-check-circle':fornecedor.tx_status=='C'}"></i> Reprovar cadastro
+                    </button>
+
+                    <button class="btn btn-md btn-success" ng-click="fornecedor.tx_status='P'">
+                        <i class="fa m-r-xs" ng-class="{'fa-circle':fornecedor.tx_status!='P', 'fa-check-circle':fornecedor.tx_status=='P'}"></i> Aprovar cadastro e publicar
+                    </button>
+                </div>                
+
+            </div>             
+        </div>
+    </div>  
+
+    <div class="panel panel-default" 
+         ng-show="fornecedor.id_pessoa && fornecedor.tx_status=='P' || fornecedor.id_pessoa && fornecedor.tx_status=='D' || fornecedor.id_pessoa && fornecedor.tx_status=='R'">
+        <div class="panel-heading">
+          Gerenciar Fornecedor
+        </div>
+        <div class="panel-body"> 
+            <div class="form-group" >
+                <p class="text-mutted">Fornecedor publicado desde XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX até XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+
+                <div class="m-t-sm">
+                    <button ng-click="changeStatus(fornecedor.id_pessoa, 'P')" ng-show="fornecedor.tx_status=='R'" 
+                            class="btn btn-md btn-success" ng-click="fornecedor.tx_status='C'">
+                        <i class="fa fa-check m-r-xs"></i> Publicar Fornecedor
+                    </button>
+
+                    <button ng-click="changeStatus(fornecedor.id_pessoa, 'R')" ng-show="fornecedor.tx_status=='P' || fornecedor.tx_status=='D'" 
+                            class="btn btn-md btn-danger" ng-click="fornecedor.tx_status='C'">
+                        <i class="fa fa-close m-r-xs"></i> <span>Retirar fornecedor do App</span>
+                    </button>
+                </div>                
+
+            </div>             
+        </div>
+    </div>        
+    
+    <div class="panel panel-default" 
+         ng-show="fornecedor.id_pessoa && fornecedor.tx_status=='P' || fornecedor.id_pessoa && fornecedor.tx_status=='D'">
+        <div class="panel-heading">
+          Destacar Fornecedor
+        </div>
+        <div class="panel-body"> 
+            <div class="form-group" >
+                
+                <div class="col-lg-6">
+
+                    <div class="col-lg-3">
+                        <input type="checkbox" ng-model="fornecedor.tx_destaque_ativo" class="m-r-xs"/> <span>Validade do Destaque</span>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <input type="datetime-local"  class="form-control" ng-disabled="!fornecedor.tx_destaque_ativo" ng-model="fornecedor.dt_validade_publicacao" />
+                    </div>
+                </div>
+
+            </div>             
+        </div>
+    </div>   
+    <div>
+        <button type="submit" class="btn btn-primary btn-rounded pull-right" ng-disabled="form.$invalid" ng-click="save()"> 
+            <span ng-hide="fornecedor.id_pessoa"><i class="fa fa-check m-r-sm"/>Cadastrar</span> 
+            <span ng-show="fornecedor.id_pessoa"><i class="fa fa-check m-r-sm"/>Salvar</span>
+        </button>
+    </div>     
+</div>

@@ -1,0 +1,19 @@
+  <script type="text/ng-template" id="modalBaseDeletar.html">
+
+    <div class="modal-header">
+        <h4 class="modal-title">Confirma exclusão?</h4>
+    </div>
+
+    <form name="form" class="modal-body text-center">
+      <h3>Deseja realmente exluir o registro "<strong>{{title}}</strong>"?</h3>
+    </form>
+
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="close()">
+          Cancelar
+        </button>
+        <button class="btn btn-danger" ng-click="deletar()">
+            <i class="fa fa-trash m-r-xs"></i> Excluir
+        </button>
+    </div>
+</script>

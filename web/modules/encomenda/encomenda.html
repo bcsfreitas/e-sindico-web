@@ -1,0 +1,259 @@
+<div ng-include="'./modules/encomenda/modalRegistrarEncomenda.html'"></div>
+<div ng-include="'./modules/encomenda/modalRegistrarSaidaEncomenda.html'"></div>
+<div ng-include="'./modules/encomenda/modalVisualizarEncomenda.html'"></div>
+<div ng-controller="encomenda">
+	<div class="bg-light lter b-b wrapper-md">
+		<!-- NORMAL MENU -->
+		<div class="visible-md-block visible-lg-block">
+			<button class="btn btn-default btn-addon pull-right m-t-n-xs m-r-xs" 
+			        target="#aside" 
+			        ng-click="registarEncomenda()">
+				<i class="fa fa-plus m-r-xs"></i> Registrar Encomenda
+			</button>
+
+			<button class="btn btn-default btn-addon pull-right m-t-n-xs m-r-xs" target="#aside" ng-click="ft={}" ng-show="encomendas.length">
+				<i class="fa fa-filter m-r-xs"></i> Limpar Busca
+			</button>
+
+			<button class="btn btn-default btn-addon pull-right m-t-n-xs m-r-xs" target="#aside" ng-click="print()">
+				<i class="fa fa-print m-r-xs"></i> Imprimir relatório
+			</button>			
+		</div>
+		<!-- DROP DOWN MENU -->
+		<div class="btn-group pull-right visible-xs-block visible-sm-block" dropdown>
+	      <button type="button" class="btn btn-default m-t-n-xs hidden-print" dropdown-toggle>
+	        <span class="caret"></span>
+	      </button>
+	      <ul class="dropdown-menu" role="menu" aria-labelledby="split-button">
+	        <li role="menuitem">
+	        	<a href="#"  ng-click="registarEncomenda()">
+	        		<i class="fa fa-plus m-r-xs"></i> Registrar Encomenda
+	        	</a>
+	        </li>	
+	        <li class="divider" ng-show="encomendas.length"></li>	  
+	        <li role="menuitem">
+	        	<a href="#"  ng-click="ft={}">
+	        		<i class="fa fa-filter m-r-xs" ng-show="encomendas.length"></i> Limpar Busca
+	        	</a>
+	        </li>
+	        <li role="menuitem" ng-show="encomendas.length">
+	        	<a href="#" ng-click="print()">
+	        		<i class="fa fa-print m-r-xs"></i> Imprimir relatório
+	        	</a>
+	        </li>
+	      </ul>
+	    </div>
+
+	    <h1 class="m-n font-thin h3">Encomendas</h1>
+	</div>
+	<div class="wrapper-md">
+		<div ng-show="!encomendas.length">
+			Sem encomendas cadastradas no sistema.
+		</div>
+		<form class="form-inline hidden-print visible-xs-block" ng-show="encomendas.length">
+        <accordion>
+          <accordion-group is-open="unidade.open">
+              <accordion-heading>
+                  <i class="fa fa-filter m-r-xs"></i>
+                  <span>Configurações de filtragem</span>
+                  <i class="pull-right glyphicon" 
+                   ng-class="{'glyphicon-chevron-down': unidade.open, 
+                              'glyphicon-chevron-right': !unidade.open}">
+                  </i>
+              </accordion-heading>
+              <div ng-show="unidade.open">
+				  <div class="form-group">
+				    <label for="remetente" class="sr-only">Remetente</label>
+				    <input type="text" class="form-control" id="remetente" 
+				           placeholder="Remetente" 
+				           ng-model="ft.remetente">
+				  </div>
+				  <div class="form-group">
+				    <label for="destinatario" class="sr-only">Destinatário</label>
+				    <input type="text" class="form-control" id="destinatario" 
+				           placeholder="Destinatário"
+				           ng-model="ft.nome">
+				  </div>
+				  <div class="form-group">
+				    <label for="rua" class="sr-only">Rua/Apto</label>
+				    <input type="text" class="form-control" id="rua" 
+				           placeholder="Rua/Apto" 
+				           ng-model="ft.rua">
+				  </div>
+				  <div class="form-group">
+				    <label for="n" class="sr-only">Nº</label>
+				    <input type="text" class="form-control" id="n" 
+				           placeholder="Nº" 
+				           ng-model="ft.numero">
+				  </div>
+				  <div class="form-group">
+				    <label for="obs" class="sr-only">Observação</label>
+				    <input type="text" class="form-control" id="obs" 
+				           placeholder="Observação" 
+				           ng-model="ft.observacao">
+				  </div>
+				  <div class="form-group">
+				  	<div class="checkbox form-group col-sm-12">
+					          <label class="i-checks" 
+					                 style="display: inline-block;">
+					            <input type="checkbox" 
+					                   checked 
+					                   ng-model="encomendaSemSaida" 
+					                   ng-change="setEncomendaSemSaida()"
+					                   />
+					            <i></i> Exibir apenas encomendas sem saída
+					          </label>
+					        </div>
+				  </div>
+              </div>
+          </accordion-group>
+        </accordion>  
+		</form>
+		<form class="form-inline hidden-print hidden-xs" ng-show="encomendas.length">
+		  <p>Utilize as opções abaixo, para filtrar as encomendas na tabela de dados.</p>
+		  
+		  <div class="form-group">
+		    <label for="remetente" class="sr-only">Remetente</label>
+		    <input type="text" class="form-control" id="remetente" 
+		           placeholder="Remetente" 
+		           ng-model="ft.remetente">
+		  </div>
+		  <div class="form-group">
+		    <label for="destinatario" class="sr-only">Destinatário</label>
+		    <input type="text" class="form-control" id="destinatario" 
+		           placeholder="Destinatário"
+		           ng-model="ft.nome">
+		  </div>
+		  <div class="form-group">
+		    <label for="rua" class="sr-only">Rua/Apto</label>
+		    <input type="text" class="form-control" id="rua" 
+		           placeholder="Rua/Apto" 
+		           ng-model="ft.rua">
+		  </div>
+		  <div class="form-group">
+		    <label for="n" class="sr-only">Nº</label>
+		    <input type="text" class="form-control" id="n" 
+		           placeholder="Nº" 
+		           ng-model="ft.numero">
+		  </div>
+		  <div class="form-group">
+		    <label for="obs" class="sr-only">Observação</label>
+		    <input type="text" class="form-control" id="obs" 
+		           placeholder="Observação" 
+		           ng-model="ft.observacao">
+		  </div>
+		  <div class="form-group">
+		  	<div class="checkbox form-group col-sm-12">
+			          <label class="i-checks" 
+			                 style="display: inline-block;">
+			            <input type="checkbox" 
+			                   checked 
+			                   ng-model="encomendaSemSaida" 
+			                   ng-change="setEncomendaSemSaida()"
+			                   />
+			            <i></i> Exibir apenas encomendas sem saída
+			          </label>
+			        </div>
+		  </div>
+		  <!-- <div class="form-group">
+		  	<div class="form-control" style="background-color:transparent;border:none;">
+	            <label>Data de Entrada:</label>
+	        </div>
+	        <div class="input-group">
+	          <input type="date" class="form-control" 
+	                 datepicker-popup 
+	                 ng-model="ft.dt_entrada" 
+	                 is-open="opened"  
+	                 ng-required="true" 
+	                 show-button-bar="false"
+	                 max-date="maxDate" 
+	                 min-date="minDate"/>
+	          <span class="input-group-btn">
+	            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+	          </span>
+	        </div>
+	      </div> -->
+		</form>
+
+		<div class="clearfix m-t-md"></div>
+
+		<div class="panel panel-default">
+
+
+    <div class="list-group list-group-sm visible-xs-block">
+        <div class="list-group-item" 
+             ng-repeat="e in encomendas|filter:ft|orderBy:'dt_entrada'" 
+		     ng-click="visualizarEncomenda(e)">
+
+          <div class="pull-right">
+          	<div class="text-muted">Remetente:</div>
+          	<span class="pull-right">{{e.remetente}}<i class="fa fa-truck m-l-xs"></i></span>
+          </div>
+
+          <div>
+          	<div class="text-muted">Destinatário:</div>
+          	<div><i class="fa fa-male m-r-xs"></i>{{e.nome}}</div>
+          	<div>
+          		<span class="text-muted">Unidade:</span>
+          		<span>{{e.logradouro}} {{e.rua}} {{e.numero}}</span>
+          	</div>
+          </div>
+
+          <div class="m-t-xs">
+	        <span class="text-muted m-r-xs">Entrada:</span>
+          	<span>{{formataData(e.dt_entrada)}}</span>
+          </div>
+
+          <div class="m-t-xs">
+          	<span class="text-muted m-r-xs" ng-show="e.dt_entrega">Saída:</span>
+          	<span ng-show="e.dt_entrega">{{formataData(e.dt_entrega)}}</span>
+			<strong ng-show="!e.dt_entrega">Sem saída registrada</strong> 
+          </div>
+
+        </div>
+    </div>
+
+    <div class="table-responsive hidden-xs">
+		<table class="table table-hover table-bordered table-striped hidden-xs pdf-print" 
+		       ng-show="encomendas.length">
+		<thead>
+		<tr>
+		  <th class="text-center">Remetente</th>
+		  <th class="text-center">Destinatário</th>
+		  <th class="text-center">Rua/Apto</th>
+		  <th class="text-center">Nº</th>
+		  <th class="text-center">Observação</th>
+		  <th class="text-center">Data de Entrada</th>
+		  <th class="text-center">Data de Saída</th>
+		</tr>
+		</thead>
+		<tbody>
+		  <tr class="pointer" 
+		      ng-repeat="e in encomendas|filter:ft|orderBy:'dt_entrada'" 
+		      ng-click="visualizarEncomenda({{e}})">
+		    <td class="text-center">{{e.remetente}}</td>
+		    <td class="text-center">{{e.nome}}</td>
+		    <td class="text-center">{{e.rua}}</td>
+		    <td class="text-center">{{e.numero}}</td>
+		    <td class="text-center">
+		    	<p ng-show="e.observacao">{{e.observacao}}</p>
+		    	<span ng-show="!e.observacao">--</span>
+		    </td>
+		    <td class="text-center">{{formataData(e.dt_entrada)}}</td>
+		    <td class="text-center">
+		    	<span ng-show="e.dt_entrega">
+		    		{{formataData(e.dt_entrega)}}
+		    	</span>
+		    	<button ng-show="!e.dt_entrega" 
+		    	        class="btn btn-xs btn-primary hidden-print"
+		    	        ng-click="registrarSaida($event, {{e}})">
+		    		Registrar Saída
+		    	</button>
+		    	<span ng-show="!e.dt_entrega" class="visible-print-block">--</span>
+		    </td>
+		  </tr>
+		</tbody>
+		</table>
+		</div>
+	</div>
+</div>

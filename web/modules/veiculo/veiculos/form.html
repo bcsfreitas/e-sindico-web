@@ -1,0 +1,162 @@
+<div class="bg-light lter b-b wrapper-md">
+  <div ng-include="'./modules/includes/menuContextual.html'"></div>
+  <h1 class="m-n font-thin h3">Formulário de Veículo</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default">
+	    <div class="panel-body">
+	      <form  class="" name="form" role="form">
+	        <div class="col-md-6 col-xs-12">
+				<div class="form-group">
+		          <label>Placa</label>
+
+		          <p class="text-danger" ng-show="form.placa.$dirty && form.placa.$invalid">
+		          	<i class="fa fa-exclamation-triangle m-r-xs"></i>Placa fora do formato AAA-1234
+		          </p>
+		          <p class="text-danger" ng-show="form.$error.maxlength">
+		          	<i class="fa fa-exclamation-triangle m-r-xs"></i>A placa deve conter apenas 7 caractéres.
+		          </p>
+		          <input type="text" 
+		                 name="placa" 
+		                 class="form-control upper"  
+		                 ng-model="veiculo.placa" 
+		                 ng-blur="buscarVeiculoExterna()"
+		                 required
+		                 ng-disabled="veiculo.edit"
+		                 ng-patter="/^[a-zA-Z]{3}(\d){1,4}/"
+		                 ng-maxlength="7"/>
+		        </div>	        	
+	        	<div class="form-group">
+		          <label>Nome do Proprétário</label>
+		          <input 
+		          type="text" 
+		          name="cor" 
+		          class="form-control" 
+		          placeholder="Nome completo" 
+		          ng-model="veiculo.nome"/>
+		        </div>
+		        <div class="form-group">
+		          <label>CPF</label>
+		          <input 
+		          type="text" 
+		          name="cor" 
+		          class="form-control" 
+		          placeholder="Só numeros" 
+		          ng-model="veiculo.cpf"/>
+		        </div>
+		        <div class="form-group">
+		          <label>Marca</label>
+		          <input type="text" 
+		                 name="modelo" 
+		                 class="form-control"
+		                 placeholder="VW, GM, FIAT"
+		                 required
+		                 ng-model="veiculo.marca" />
+		        </div>
+		        <div class="form-group">
+		          <label>Modelo</label>
+		          <input type="text" 
+		                 name="modelo" 
+		                 class="form-control"
+		                 placeholder="GOL G5 1.0"
+		                 required
+		                 ng-model="veiculo.modelo" />
+		        </div>
+		        <div class="form-group">
+		          <label>Cor</label>
+		          <input 
+		          type="text" 
+		          name="cor" 
+		          class="form-control" 
+		          placeholder="Vermelho" 
+		          ng-model="veiculo.cor"/>
+		        </div>
+
+		        <div class="form-group">
+		          <label>Chassi</label>
+		          <input 
+		          type="text" 
+		          name="cor" 
+		          class="form-control" 
+		          placeholder="5 números" 
+		          ng-model="veiculo.chassi_final"/>
+		        </div>
+			</div>	
+			<div class="col-md-6 col-xs-12">
+			    <div class="form-group">
+		          <label>Ano</label>
+		          <input 
+		          type="text" 
+		          name="cor" 
+		          class="form-control" 
+		          placeholder="4 números" 
+		          ng-model="veiculo.ano"/>
+		        </div>
+		    
+				<div class="form-group">
+		          <label>Ano/Modelo</label>
+		          <input 
+		          type="text" 
+		          name="cor" 
+		          class="form-control" 
+		          placeholder="4 números" 
+		          ng-model="veiculo.modelo_ano"/>
+		        </div>	
+
+		        <div class="form-group">
+		          <label>Município</label>
+		          <input 
+		          type="text" 
+		          name="cor" 
+		          class="form-control" 
+		          placeholder="CURITIBA, BRASILIA, GOIANIA" 
+		          ng-model="veiculo.municipio"/>
+		        </div>
+
+		        <div class="form-group">
+		          <label>UF</label>
+		          <input 
+		          type="text" 
+		          name="cor" 
+		          class="form-control" 
+		          placeholder="DF, GO, MG" 
+		          ng-model="veiculo.uf"/>
+		        </div>
+
+		        <div class="form-group">
+		          <label>Renavam</label>
+		          <input 
+		          type="text" 
+		          name="cor" 
+		          class="form-control" 
+		          placeholder="De 9 à 11 digitos" 
+		          ng-model="veiculo.renavam"/>
+		        </div>	
+
+		        <div class="form-group">
+		          <label>Situação</label>
+		          <input type="hidden" ng-model="veiculo.codigoSituacao"/>
+		          <input 
+		          type="text" 
+		          name="situacao" 
+		          class="form-control" 
+		          disabled
+		          ng-model="veiculo.situacao"/>
+		        </div>
+
+		        
+			</div>						 
+	      </form>
+		</div>
+		<footer class="panel-footer text-right bg-light lter">
+	      <button 
+	      type="submit" 
+	      class="btn btn-primary btn-rounded" 
+	      ng-disabled="form.$invalid" 
+	      ng-click="save()">
+	      <span ng-show="veiculo.edit">Editar</span>
+	      <span ng-hide="veiculo.edit">Cadastrar</span>
+	  	  </button>
+	    </footer>
+	</div>
+</div>

@@ -1,0 +1,33 @@
+<div class="visible-md-block visible-lg-block">
+   <button ng-repeat="botao in botoes"  
+           class="btn btn-addon pull-right m-t-n-xs m-r-xs" 
+           ng-class="{'btn-default':!botao.tipo, 'btn-danger':botao.tipo=='danger'}"
+           ng-click="acao(botao.acao)"
+           ng-disabled="botao.disabled">
+       <i class="{{botao.icone}} m-r-xs"></i> {{botao.nome}}
+   </button>
+</div>
+
+<div class="btn-group pull-right visible-xs-block visible-sm-block" dropdown 
+     ng-if="botoes.length>=1">
+   <button class="btn btn-default btn-addon m-t-n-xs hidden-print" 
+           ui-toggle-class="show" ng-disabled="botoes[0].disabled" 
+           target="#aside"  ng-click="acao(botoes[0].acao)">
+       <i class="{{botoes[0].icone}} m-r-xs"></i> {{botoes[0].nome}}
+   </button>
+
+    <button type="button" class="btn btn-default m-t-n-xs hidden-print" dropdown-toggle ng-if="botoes.length>1">
+      <span class="caret"></span>
+    </button>
+
+    <ul class="dropdown-menu" role="menu" aria-labelledby="split-button" ng-if="botoes.length>1">
+      <li role="menuitem" ng-repeat="botao in botoes | after:1"  ng-class="{'disabled':botao.disabled}">
+        <a href="#" ng-click="acao(botao.acao)" ng-if="!botao.disabled">
+          <i class="fa {{botao.icone}} m-r-xs"></i> {{botao.nome}}
+        </a>
+        <a ng-if="botao.disabled">
+          <i class="fa {{botao.icone}} m-r-xs"></i> {{botao.nome}}
+        </a>        
+      </li>
+    </ul>
+</div>

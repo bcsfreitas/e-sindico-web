@@ -1,0 +1,123 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Formulário de Empresa</h1>
+</div>
+<div class="animated fadeDownLeft wrapper-md">
+  <div class="panel panel-default">
+      <form  class="m-t-sm" name="form" role="form">
+        <div class="row col-xs-12 col-md-6">
+          <div class="form-group col-xs-12">
+            <label>Nome Fantasía</label>
+            <input type="text" class="form-control" ng-required ng-model="company.name" />
+          </div>
+          <div class="form-group col-xs-12">
+            <label>CNPJ</label>
+            <input type="text" class="form-control" ng-required ng-model="company.cnpj" mask="99.999.999/9999-99" clean="true" />
+          </div>
+          <div class="form-group col-xs-12">
+            <label>Logomarca da empresa</label>
+            <div ng-show="company.imageUrl">
+              <div>
+                <div>
+                  <img class="thumb" ng-src="{{company.imageUrl}}"/>
+                </div>
+                  <button class="btn btn-primary btn-xs m-t-xs" ng-click="company.imageUrl = undefined"><i class="fa fa-edit m-r-xs"></i> Alterar</button>
+              </div>
+            </div>
+          <div ng-hide="company.imageUrl">
+            <input type="file" file-model="image" class="form-control"/>
+          </div>
+
+          </div>
+          <div class="form-group col-xs-6">
+            <label>Telefone A</label>
+            <input type="text" class="form-control" ng-required ng-model="company.telefoneA" mask="(99) 99999?-9999" clean="true" />
+          </div> 
+          <div class="form-group col-xs-6">
+            <label>Telefone B</label>
+            <input type="text" class="form-control" ng-required ng-model="company.telefoneB" mask="(99) 99999?-9999" clean="true" />
+          </div>
+          <div class="form-group col-xs-12">
+            <label>Endereço Físico</label>
+            <textarea type="text" class="form-control" ng-required ng-model="company.endereco"></textarea>
+          </div>           
+  
+          <div class="form-group col-xs-6">
+            <label>Latitude</label>
+            <input type="text" class="form-control" ng-required ng-model="company.latitude" />
+          </div> 
+          <div class="form-group col-xs-6">
+            <label>Longitude</label>
+            <input type="text" class="form-control" ng-required ng-model="company.longitude" />
+          </div>
+       
+                  
+          <div class="form-group col-xs-12">
+            <label>Sobre a empresa</label>
+            <textarea class="form-control" rows="10" ng-required ng-model="company.about"></textarea>
+          </div>
+        </div>
+
+
+        <div class="row col-xs-12 col-md-6">
+          <h3 class="m-l-sm m-b-lg    ">Cores do Aplicativo</h3>
+          <div class="form-group col-xs-3">
+            <div>
+              <label>Cor Primária do Aplicativo</label>
+            </div>
+            <div class="form-group">
+              <input type="color" class="form-control input-sm" ng-required ng-model="company.color" />
+              <input type="text" class="form-control input-sm" ng-required ng-model="company.color" />
+            </div>
+          </div>  
+          <div class="form-group col-xs-3">
+            <div>
+              <label>Cor da Fonte do Aplicativo</label>
+            </div>
+            <div class="form-group">
+              <input type="color" class="form-control input-sm" ng-required ng-model="company.colorFont" />
+              <input type="text" class="form-control input-sm" ng-required ng-model="company.colorFont" />
+            </div>
+          </div>   
+
+          <div class="form-group col-xs-12">
+            <div>
+              <label>Pré-visualização</label>
+            </div>
+            <div class="phone">
+                <div class="screen">
+                    <div class="screen-wraper">
+                      <div class="TextView" style="background-color: {{company.color}}; color: {{company.colorFont}}">
+                          <i class="fa fa-bars m-r-lg">
+                          </i>{{company.name}}
+                          <i class="fa fa-search pull-right"></i>
+                      </div>
+                        <div class="card x-box-shadow">
+                            <div class="card-image">
+                              <img src="img/sample-1.jpg">
+                            </div>
+                            <div class="card-content">
+                                <b class="card-title">Título da notícia virá aqui</b>
+                                <p style="margin-top:10px;">Eu sou um cartão muito simples. Eu sou bom para conter pequenas informações. Eu sou conveniente por que eu preciso de pouca marcação para ser usado efetivamente.</p>
+                            </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>    
+          </div>    
+        </div>
+      </form>
+      <div class="clearfix"></div>
+  </div>
+
+  <footer class="panel-footer text-right bg-light lter">
+    <button 
+      type="submit" 
+      class="btn btn-primary btn-rounded" 
+      ng-disabled="form.$invalid" 
+      ng-click="save()">
+    <span ng-show="company.id"><i class="fa fa-save m-r-sm"></i>Salvar</span>
+    <span ng-hide="company.id"><i class="fa fa-save m-r-sm"></i>Cadastrar</span>
+    </button>
+  </footer>
+</div>

@@ -1,0 +1,37 @@
+<div id="buscaDeMoradorComponent_{{id}}" class="buscaDeMoradorComponent"> 
+
+  <div class="form-control pointer" ng-show="ngModel" ng-click="remover()" tooltip="Remover Morador">
+      <i class="fa fa-male m-r-xs"></i/>
+      	{{ngModel.nome}}
+      <i class="fa fa-close pull-right pointer close1"></i>
+  </div>
+
+  <p ng-show="!moradores.length && !ngModel">
+  	Após selecionar a unidade os moradores serão listados abaixo.
+  </p>
+
+  <div ng-show="moradores.length && !ngModel">
+    <table class="table table-hover table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>Nome</th>
+        <th ng-if="endereco">Endereço</th>
+        <th>Telefone</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="m in moradores" 
+            ng-click="setMorador(m)">
+          <td class="vmiddle text-center">{{m.nome}}</td>
+          <td class="vmiddle text-center" ng-if="endereco">{{m.logradouro}} {{m.rua}} {{m.numero}}</td>
+          <td class="vmiddle text-center">
+          	<div ng-repeat="t in m.telefones">
+          		<i class="fa {{t.icone}} m-r-xs"></i>{{t.telefone|telefone}} - {{t.descricao}} ({{t.operadora}})
+          	</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>	

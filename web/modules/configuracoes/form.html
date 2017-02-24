@@ -1,0 +1,98 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">Configurações</h1>
+</div>
+<div class="wrapper-md">
+	<accordion close-others="oneAtATime">
+	  <accordion-group is-open="wp.open" >
+	      <accordion-heading>
+	          <i class="fa fa-whatsapp m-r-xs"></i>
+	          <span>Configurações do Sistema de Mensagem</span>
+	          <i class="pull-right glyphicon" 
+	           ng-class="{'glyphicon-chevron-down': wp.open, 'glyphicon-chevron-right': !wp.open}">
+	          </i>
+	      </accordion-heading>
+	      <div ng-show="wp.open">
+			<form name="form" role="form">
+		        <div class="col-xs-12 col-lg-6">
+		    		<div class="form-group">
+			          	<label class="control-label">Número do Telefone</label>
+			          	<p class="text-muted">O número do telefone deve conter o código do país, no caso do Brasil esse número é o 55, composto do código de DDD e o número final do celular.</p>
+			            <input type="text" 
+			                   class="form-control" 
+			                   placeholder="556199998888" 
+			                   ng-model="cogs.wp_numero" />
+		            </div>
+
+		    		<div class="form-group">
+			          	<label class="control-label">Apelido</label>
+			          	<p class="text-muted">
+			          		Nome exibido para os usuários que irão receber as mensagens.
+			          	</p>
+			            <input type="text" 
+			                   class="form-control" 
+			                   placeholder="Ex: {{app.name}}" 
+			                   ng-model="cogs.wp_apelido" />
+		            </div>		       
+
+		            <div class="form-group">
+			          	<label class="control-label">Tipo de Liberação</label>
+			          	<p class="text-muted">Caso escolhido o SMS uma mensagem de texto contendo o código deverá chegar no celular. Caso seja escolhido mensagem de voz uma ligação será efetuada para o celular contendo uma mensagem com o código.</p>
+			            <div class="col-xs-12 row">
+			            	<button class="btn btn-xs m-r-xs" 
+			            	        tooltip="Um SMS chegará no número: {{cogs.wp_numero}}"
+			            	        ng-class="{'btn-default':cogs.wp_tipo_codigo!='sms', 
+			            	                   'btn-primary':cogs.wp_tipo_codigo=='sms'}"
+			            	        ng-click="cogs.wp_tipo_codigo='sms'">
+			            		<i class="fa fa-comment-o m-r-xs"></i>
+			            		Solicitar o código via SMS
+			            	</button>
+			            	<button class="btn btn-xs" 
+			            	        tooltip="Um ligação será feita ao número: {{cogs.wp_numero}} e o código será mencionado por uma voz robotizada."
+			            			ng-class="{'btn-default':cogs.wp_tipo_codigo!='voice', 
+			            	                   'btn-primary':cogs.wp_tipo_codigo=='voice'}"
+			            	        ng-click="cogs.wp_tipo_codigo='voice'">
+			            		<i class="fa fa-microphone m-r-xs"></i>
+			            		Solicitar o código por Chamada de Voz
+			            	</button>
+			            </div>
+		            </div>
+		            <div class="clearfix"></div>
+		            <br/>
+					<div class="form-group">
+			          	<label class="control-label">Código de Liberação</label>
+			          	<p class="text-muted">O código de liberação é necessário para o envio e recebimento de mensagens, caso ainda não tenha esse código clique em solicitar código.</p>
+			            <input type="text" class="form-control" placeholder="Só números" ng-model="cogs.wp_codigo" />			         
+		            	<button class="btn btn-xs btn-success m-t-xs pull-right" 
+		            	        ng-show="cogs.wp_tipo_codigo && !cogs.wp_codigo" 
+		            	        ng-click="receberCodigo()">
+		            		<i class="fa fa-key m-r-xs"></i>
+		            		O celular está pronto para receber o código
+		            	</button>		           
+		            </div>	
+		            <hr/>
+		            <button class="btn btn-primary pull-right" ng-click="save()">
+			  			<i class="fa fa-save m-r-xs"></i>Salvar
+			  		</button>	            
+
+		        </div>
+		        <div class="col-xs-12 col-lg-6" ng-show="cogs.wp_codigo">
+		    		<div class="form-group">
+			          	<label class="control-label">Teste de Envio de Mensagem</label>
+			          	<p class="text-muted">Faça um teste enviando uma mensagem para alguém que também utilize o sistema de mensagem <i class="fa fa-whatsapp m-l-xs"></i>.</p>
+			            <input type="text" class="form-control" placeholder="Número do Destinatário" ng-model="cogs.wp_to" />
+			            <textarea class="form-control m-t-xs" 
+			                      placeholder="Mensagem"
+			                      ng-model="cogs.wp_msg"></textarea>
+			            <button class="btn btn-info m-t-xs pull-right" 
+			                    ng-click="wpMensagem()"
+			                    ng-disabled="!cogs.wp_to">
+			                    <i class="fa fa-whatsapp m-r-xs"></i> 
+			                    Enviar Mensagem
+			            </button>
+		            </div>
+			  	</div>  	
+		  	</form>
+	      </div>
+	  </accordion-group>
+	</accordion>
+</div>

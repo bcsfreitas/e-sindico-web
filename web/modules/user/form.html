@@ -1,0 +1,129 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">Moderar Usuários
+            <button type="button" class="btn btn-primary btn-rounded pull-right" ui-sref="app.user"> 
+                <span><i class="fa fa-list m-r-sm"/>Listar</span> 
+            </button>    
+    </h1>
+</div>
+
+<div class="wrapper-md">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          Dados de Acesso
+        </div>
+        <div class="panel-body"> 
+
+            <div>
+                <div class="form-group" style="display:none;">
+                    <label>Nome Completo</label> 
+                    <span class="text-danger" ng-show="form.nome.$error.$required"> O Campo nome completo é obrigatório</span> 
+                    <input type="text" autocomplete="off" name="nome" class="form-control" placeholder="Nome completo" ng-model="usuario.nome">
+                </div>
+
+                <div class="form-group" style="display:none;">
+                   <label>Telefone</label> 
+                   <span class="text-danger" ng-show="form.email.$error.$required">O Campo telefone é obrigatório</span> 
+                   <input type="text" autocomplete="off" name="telefone" class="form-control" placeholder="Telefone do usuário" 
+                          ng-required ng-model="usuario.telefonePessoal" mask="(99) 99999?-9999" clean="true">
+                </div> 
+
+                <div class="form-group">
+                  <label>Imagem do usuário</label>
+                  <div ng-show="usuario.tx_foto">
+                    <div>
+                      <div>
+                          <img class="thumb"  ng-src="{{usuario.tx_foto}}"/>
+                      </div>
+                      <button class="btn btn-primary btn-xs m-t-xs" ng-click="usuario.tx_foto = undefined"><i class="fa fa-edit m-r-xs"></i> Alterar</button>
+                    </div>
+                  </div>
+                  <div ng-hide="usuario.tx_foto">
+                    <input type="file" file-model="image" class="form-control"/>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nome</label> 
+                    <span class="text-danger" ng-show="form.email.$error.$required"> O Campo nome é obrigatório</span> 
+                    <input type="text" autocomplete="off" name="nome" class="form-control" placeholder="E-mail" ng-model="usuario.tx_nome">
+                </div>
+
+                <div class="form-group">
+                    <label>E-mail</label> 
+                    <span class="text-danger" ng-show="form.email.$error.$required"> O Campo e-mail é obrigatório</span> 
+                    <input type="text" autocomplete="off" name="email" class="form-control" placeholder="E-mail" ng-model="usuario.tx_email">
+                </div>
+
+                <div class="form-group">
+                    <label><input type="checkbox" autocomplete="off" name="alterPass" placeholder="E-mail" ng-model="usuario.alter_pass" class="m-r-xs"> Altera senha</label> 
+                    
+                </div>
+
+                <div ng-show="usuario.alter_pass">
+                    <div class="form-group">
+                        <label>Senha</label> 
+                        <span class="text-danger" ng-show="form.tx_senha.$error.$required"> O Campo senha é obrigatório</span> 
+                        <input type="password" autocomplete="off" name="tx_senha" class="form-control" placeholder="Senha" ng-model="usuario.tx_senha"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Confirme a senha</label> 
+                        <span class="text-danger" ng-show="form.tx_senha_confirm.$error.$required"> O Campo confirme a senha é obrigatório</span> 
+                        <input type="password" autocomplete="off" name="tx_senha_confirm" class="form-control" placeholder="Confirme a senha" ng-model="usuario.tx_senha_confirm"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          Funcionalidades do Sistema
+        </div>
+
+        <div class="panel-body"> 
+            <div class="form-group" ng-init="permission=[{'name':'Acessar painel de controle', 'active':true}, {'name':'Consultar usuário', 'active':false}]">
+                <table class="table table-striped b-t b-light" ng-show="usuario.permission.length">
+                    <thead>
+                      <tr>
+                        <th class="text-center">Acesso</th>
+                        <th class="text-center">Permissão</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="item in permission">
+                        <td class="text-center">
+                            <i class="fa fa-2x" 
+                            ng-class="{'fa-check-circle text-success':item.active==true, 
+                                       'fa-times-circle text-danger':item.active==false}"/>
+                        </td>                              
+                        <td class="text-center">
+                            {{item.name}}
+                        </td>
+                        <td class="text-center">{{item.description}}</td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>    
+        </div>
+
+        <div class="clearfix"></div>
+    </div>    
+    <div class="panel-body">
+        <footer class="text-right bg-light lter">
+            <button 
+                ng-show="usuario.id_pessoa"
+                type="submit" 
+                class="btn btn-danger btn-rounded pull-left" 
+                ng-click="delete()">
+                <span><i class="fa fa-trash m-r-sm"></i>Excluir</span>
+            </button>
+            <button type="submit" class="btn btn-primary btn-rounded pull-right" ng-disabled="form.$invalid" ng-click="save()"> 
+                <span ng-hide="usuario.id_pessoa"><i class="fa fa-save m-r-sm"/>Cadastrar</span> 
+                <span ng-show="usuario.id_pessoa"><i class="fa fa-save m-r-sm"/>Salvar</span>
+            </button>
+        </footer>     
+    </div>
+</div>

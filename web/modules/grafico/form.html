@@ -1,0 +1,72 @@
+<div class="bg-light lter b-b wrapper-md">
+    <div ng-include="'./modules/includes/menuContextual.html'"></div>
+    <h1 class="m-n font-thin h3">Fornecedor</h1>
+</div>
+<style>
+span.big-text{
+    font-size: 36px;
+}
+
+.big-circle{
+    width: 80px !important;
+    height: 80px !important;
+}
+</style>
+<div class="wrapper-md">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <p>Gráficos</p>
+        </div>
+        <div class="panel-body"> 
+
+                <div class="col-lg-2 col-lg-offset-1 text-center">
+                    <button class="btn btn-rounded btn-lg btn-icon btn-primary big-circle">
+                        <span class="big-text">574</span>
+                    </button>
+                    <p class="m-t-sm">Total de Fornecedores Cadastrados</p>
+                </div> 
+
+                <div class="col-lg-2 col-lg-offset-1 text-center">
+                    <button class="btn btn-rounded btn-lg btn-icon btn-info big-circle">
+                        <span class="big-text">500</span>
+                    </button>           
+                    <p class="m-t-sm">Total de Fornecedores Publicados</p>
+                </div> 
+
+                <div class="col-lg-2 col-lg-offset-1 text-center">
+                    <button class="btn btn-rounded btn-lg btn-icon btn-success big-circle">
+                        <span class="big-text">736</span>
+                    </button>
+                    <p class="m-t-sm">Total de Condomínios Cadastrados</p>
+                </div> 
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <p>Tipos de Serviços</p>
+        </div>
+        <div class="panel-body"> 
+
+        <style>
+        .pieLabel div{
+            font-size: 15px !important;
+        }
+        </style>
+        <div class="text-center wrapper m-b-sm">   
+          <div class="col-lg-4 col-lg-offset-4">
+            <div ui-jq="plot" ui-options="
+              [{'label':'Limpeza','data':0.8},{'label':'Manutenção','data':0.6},{'label':'Cont. de Praga','data':0.55},{'label':'Hidrojateamento','data':0.4}],
+              {
+                series: { pie: { show: true, innerRadius: 0.5, stroke: { width: 0 }, label: { show: true, threshold: 0.1 } } },
+                colors: ['#7266ba','#23b7e5','#27c24c','#fad733','#f05050'],
+                grid: { hoverable: true, clickable: true, borderWidth: 1, color: '#ccc' },   
+                tooltip: false,
+                tooltipOpts: { content: '%s: %p.0%' }
+              }
+            " style="height:240px"></div>
+          </div>
+          <div class="clearfix"></div>
+    </div>    
+    <div class="clearfix"/>
+</div>

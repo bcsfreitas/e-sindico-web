@@ -1,0 +1,57 @@
+  <script type="text/ng-template" id="modalMenuForm.html">
+
+    <div class="modal-header">
+        <h4 class="modal-title">Gerenciar Menu da área "{{menu.page}}"</h4>
+    </div>
+
+    <form name="form" class="modal-body">
+
+
+      <div class="row col-xs-12">
+        <div class="form-group col-xs-6">
+          <div>
+            <label>Ocultar este menu do aplicativo?</label>
+          </div>
+          <div class="m-t-xs btn btn-default"  ng-click="menu.hide = !menu.hide">
+            <i class="fa fa-1x m-r-xs"  
+               ng-class="{'fa-times-circle text-danger':menu.hide == true, 
+                          'fa-check-circle text-success':menu.hide == false}"/>
+            <span class="text-danger" ng-show="menu.hide">Ocultado</span>
+            <span class="text-success" ng-hide="menu.hide">Visível</span>                          
+          </div>
+        </div>         
+        <div class="form-group col-xs-6">
+          <div>
+            <label>Exigir que o usuário esteja logado para acessar o menu?</label>
+          </div>
+          <div class="m-t-xs btn btn-default"  ng-click="menu.requiredLogin = !menu.requiredLogin">
+            <i class="fa fa-1x m-r-xs"  
+               ng-class="{'fa-lock text-danger':menu.requiredLogin == true, 
+                          'fa-unlock text-success':menu.requiredLogin == false}"/>
+            <span class="text-danger" ng-show="menu.requiredLogin">Exige o login</span>
+            <span class="text-success" ng-hide="menu.requiredLogin">Não é necessário o login</span>                          
+          </div>
+        </div>
+        <div class="form-group col-xs-6">
+          <label>Ordem</label>
+          <input type="number" class="form-control" ng-required ng-model="menu.order" />
+        </div>
+        <div class="form-group col-xs-6">
+          <label>Título do menu</label>
+          <input type="text" class="form-control" ng-required maxlength="15" ng-model="menu.title" />
+        </div>           
+      </div>
+
+
+    </form>
+    <div class="clearfix"></div>
+
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="close()">
+          Cancelar
+        </button>
+        <button class="btn btn-primary" ng-click="save()">
+            <i class="fa fa-save m-r-xs"></i> Salvar
+        </button>
+    </div>
+</script>

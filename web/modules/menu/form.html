@@ -1,0 +1,49 @@
+<div ng-include="'./modules/menu/modalForm.html'"></div>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Menu</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+
+    <div class="table-responsive">
+
+      <table class="table table-hover table-striped b-t b-light">
+
+        <thead>
+          <tr>        
+            <th class="text-center"></th>
+            <th class="text-center">Ordem</th>
+            <th class="text-center">Título do menu</th>
+            <th class="text-center">Menu visível?</th>
+            <th class="text-center">Exigir acesso?</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="m in menu | orderBy : 'order'" ng-click="form(m)">
+            <td class="text-center">{{m.page}}</td>    
+            <td class="text-center">{{m.order}}</td>    
+            <td class="text-center">{{m.title}}</td>
+            <td class="text-center">
+            
+              <i class="fa fa-lg m-r-xs"  ng-class="{'fa-times-circle text-danger':m.hide == true, 'fa-check-circle text-success':m.hide == false}"></i>
+              <span class="text-danger" ng-show="m.hide">Ocultado</span>
+              <span class="text-success" ng-show="!m.hide">Visível</span> 
+
+            </td>
+            <td class="text-center">
+              <i class="fa fa-lg m-r-xs"  ng-class="{'fa-lock text-danger':m.requiredLogin==true, 'fa-unlock text-success':m.requiredLogin==false}"></i>
+              <span class="text-danger" ng-show="m.requiredLogin">Exige login</span>
+              <span class="text-success" ng-show="!m.requiredLogin">Não é necessário login</span>               
+            </td>         
+          </tr>
+        </tbody>
+
+      </table>
+
+      
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,382 @@
+  <script type="text/ng-template" id="modalRegistrarVisita.html">
+
+    <style>
+    #tb-veiculos tbody tr:hover {
+      cursor: pointer;
+      border: 2px solid #FFA500;
+    }
+    table .td{
+          vertical-align: middle;
+    }
+    .block {
+      display:block;
+    }
+    .box-header{
+      background-color: #DDE6E9;
+      padding: 3px;
+      font-size: 13pt;
+      text-align:center;
+      border-radius:5px;
+    }
+    .vam{
+      text-align: center !important;
+      vertical-align: middle !important;
+    }
+    .sz2{
+      font-size:18pt;
+      color:#7266ba;
+    }
+    </style>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Registar Vísita de Veículo</h4>
+        <span style="margin-top: -21px;" class="text-primary text-center pull-right" ng-show="carSuccess">
+          <i class="fa fa-car m-r-xs"></i> Um novo veículo foi cadastrado...
+        </span>
+    </div>
+    <div class="modal-body row">
+      <div id="message-box" 
+           class="form-group col-sm-12 col-xs-12">
+            <div ng-show="error" class="alert alert-danger"><i class="fa fa-exclamation-triangle m-r-xs"></i>
+              {{error}}
+            </div>
+            <div ng-show="success" class="text-success text-center" style="font-size: 20pt;">
+              <i class="fa fa-thumbs-o-up m-r-xs"></i> {{sucessMessage}}
+            </div>
+            <div class="label bg-primary text-center col-xs-12 col-md-12 col-lg-12" 
+                 ng-show="isCapsLockOn">
+              <i class="fa fa-exclamation-triangle m-r-xs"></i> A tecla caps lock esta ativa, desative-a e digite normalmente a placa.
+            </div>
+            
+            <div class="text-primary text-center col-xs-12 col-md-12 col-lg-12" 
+                 ng-show="searchCar">
+              <i class="fa fa-spinner fa-spin m-r-xs"></i> Buscando informações do veículo... 
+            </div>
+            <div class="bg-danger text-center col-xs-12 col-md-12 col-lg-12" 
+                 ng-show="carRoubado" 
+                 style="font-size: 13pt;border-radius: 10px;padding: 10px;">
+              <i class="fa fa-exclamation-circle"></i> Veículo Roubado! Tente não abordar o veículo por conta própria, ligue para a polícia verificar se ainda consta a irregularidade. 
+            </div>
+      </div>
+      <div id="form">
+  	    <div class="form-group col-sm-6 col-xs-6">
+              <label 
+              style="margin: 0 auto;text-align: center;width: 100%;">Placa do Veículo
+              </label>
+              <input type="text" 
+                     autocomplete="off"
+                     autofocus
+                     name="placa" 
+                     id="placa"
+                     class="form-control" 
+                     style="margin: 0 auto;
+                            margin-top: 7px;
+                            text-transform: uppercase;
+                            height: 60px;
+                            text-align: center;
+                            font-size: 20pt;"
+                     placeholder="JKL-1234"
+                     mask="aaa9999"
+                     clean="true"
+                     restrict="reject"
+                     ng-model="placa"
+                     ng-change="consultarVeiculo()" />
+        </div>
+        <div class="form-group col-sm-6 col-xs-6">
+              <label 
+              style="margin: 0 auto;text-align: center;width: 100%;">Modelo do Veículo
+              </label>
+              <input type="text" 
+                     autocomplete="off"
+                     name="modelo" 
+                     id="modelo"
+                     class="form-control" 
+                     style="margin: 0 auto;
+                            margin-top: 7px;
+                            text-transform: uppercase;
+                            height: 60px;
+                            text-align: center;
+                            font-size: 20pt;"
+                     placeholder="Gol 1.0"
+                     ng-model="modelo"
+                     ng-change="procuraVeiculoPorModelo()" />
+        </div>
+
+        <div class="form-group col-sm-12 col-xs-12" 
+            ng-show="veiculos.length>0 && placa.length!=7">
+            <p class="box-header">Veículos que já estiveram no condomínio</p>
+            <table class="table table-bordered table-striped table-hover" id="tb-veiculos">
+              <thead>
+              <tr class="text-center">
+                <th class="text-center">Placa</th>
+                <th class="text-center">Marca</th>
+                <th class="text-center">Modelo</th>
+                <th class="text-center">Cor</th>
+                <th class="text-center">Ano/Modelo</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr  class="text-center" 
+                   ng-repeat="car in veiculos" ng-click="selectVeiculo('{{car.placa}}')">
+                <td class="text-center">{{car.placa | placaFormat}}</td>
+                <td class="text-center">{{car.marca}}</td>
+                <td class="text-center">{{car.modelo}}</td>
+                <td class="text-center">{{car.cor}}</td>
+                <td class="text-center">{{car.ano}}/{{car.modelo_ano}}</td>
+              </tr>
+              </tbody>
+            </table>
+        </div>
+        <div class="form-group col-sm-12 col-xs-12 text-center margin-bottom-20" ng-show="car.proprietario">
+          <h2 class="text-primary text-center">Veículo do morador: <span>{{car.nome}}</span></h2>
+          <button class="btn btn-primary btn-xs text-center" ng-click="car.proprietario=undefined"><i class="fa fa-ban m-r-xs"></i>Clique se não for veículo de morador</button>
+          <br/><br/>
+        </div>
+        <div class="form-group col-sm-12 col-xs-12" ng-show="carExist">
+            <p class="box-header">Informações do veículo</p>
+            <table class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <th class="text-center">Marca</th>
+                <th class="text-center">Modelo</th>
+                <th class="text-center">Cor</th>
+                <th class="text-center">Ano/Modelo</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td class="text-center">{{car.marca}}</td>
+                <td class="text-center">{{car.modelo}}</td>
+                <td class="text-center">{{car.cor}}</td>
+                <td class="text-center">{{car.ano}}/{{car.modelo_ano}}</td>
+              </tr>
+              <tr>
+                <th class="text-center">UF</th>
+                <th class="text-center" class="text-center" >Cidade</th>
+                <th  class="text-center" colspan="2">Situação</th>
+              </tr>
+              <tr>
+                <td class="text-center">{{car.uf}}</td>
+                <td class="text-center">{{car.municipio}}</td>
+                <td colspan="2" class="text-center">
+                  <span class="badge text-center" 
+                        ng-class="{'bg-danger':car.codigoSituacao=='1', 'bg-success':car.codigoSituacao!='1'}">
+                    {{car.situacao}}
+                  </span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+        </div>
+
+
+
+        <div class="form-group col-sm-12 col-xs-12" ng-show="carExist && !car.proprietario">
+          <p class="box-header">Informações do visitante/proprietário</p>
+          <div class="text-center col-sm-4 col-xs-4">
+              <label 
+              style="margin: 0 auto;text-align: center;width: 100%;">CPF do Visitante
+              </label>
+              <input type="text" 
+                     autocomplete="off"
+                     name="cpf" 
+                     id="cpf"
+                     class="form-control" 
+                     style="margin: 0 auto;
+                            margin-top: 7px;
+                            text-transform: uppercase;
+                            height: 60px;
+                            text-align: center;
+                            font-size: 12pt;"
+                     placeholder="Só Números"
+                     mask="99999999999"
+                     clean="true"
+                     restrict="reject"
+                     ng-model="cpf" />
+          </div>
+          <div class="text-center col-sm-4 col-xs-4">
+              <label 
+              style="margin: 0 auto;text-align: center;width: 100%;">
+              Nome do Visitante
+              </label>
+              <input type="text" 
+                     autocomplete="off"
+                     name="nome" 
+                     id="nome"
+                     class="form-control" 
+                     style="margin: 0 auto;
+                            margin-top: 7px;
+                            text-transform: uppercase;
+                            height: 60px;
+                            text-align: center;
+                            font-size: 10pt;"
+                     placeholder="Nome do Visitante"
+                     ng-model="nome" />
+          </div>
+          <div class="text-center col-sm-4 col-xs-4">
+              <label 
+              style="margin: 0 auto;text-align: center;width: 100%;">
+              Tipo de Veículo
+              </label>
+              <input type="text" 
+                     autocomplete="off"
+                     name="tipo" 
+                     id="tipo"
+                     class="form-control" 
+                     style="margin: 0 auto;
+                            margin-top: 7px;
+                            text-transform: uppercase;
+                            height: 60px;
+                            text-align: center;
+                            font-size: 12pt;"
+                     placeholder="Escolar, PM, JM"
+                     ng-model="tipo" />
+          </div>
+        </div>
+
+        <div class="form-group col-sm-12 col-xs-12" ng-show="visitas.length">
+          <p class="box-header">Últimas entradas/saídas</p>
+          <table class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <th class="text-center">Data de Entrada</th>
+                <th class="text-center">Permanência</th>
+                <th class="text-center">Data de Saída</th>
+                
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="car in visitas">
+                <td>{{ formataData(car.data_visita) }}</td>
+                <td>
+                  <span ng-show="car.data_saida">
+                    {{ permanencia(car.data_saida, car.data_visita) }}
+                  </span>
+                </td>
+                <td class="text-center">
+                  <span ng-show="car.data_saida">{{ formataData(car.data_saida) }}</span>
+                  <button  ng-show="!car.data_saida" class="btn btn-primary btn-xs" 
+                           ng-click="registrarSaida('{{car.placa}}','{{car.data_visita}}')">
+                    <i class="fa fa-car m-r-xs"></i> Registrar Saída
+                  </button>
+                </td>
+                
+              </tr>
+              </tbody>
+            </table>
+        </div>
+
+        <div class="form-group col-sm-12 col-xs-12" ng-show="carExist && !car.proprietario">
+           <p class="box-header">
+           Últimos endereços visitados, selecione o endereço de destino do visitante
+           </p>
+           <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="text-center">
+                  <i class="fa fa-home m-r-xs block"></i> Unidade
+                </th>
+                <th class="text-center">
+                  <i class="fa fa-car m-r-xs block"></i> Proprietário
+                </th>
+                <th class="text-center">
+                  <i class="fa fa-male m-r-xs block"></i> Morador
+                </th>
+                <th class="text-center">
+                  <i class="fa fa-phone m-r-xs block"></i> Telefone(s)
+                </th>
+                <th class="text-center">
+                  <i class="fa fa-road m-r-xs block"></i> Rua/Prédio
+                </th>
+                <th class="text-center">
+                  <i class="fa fa-home m-r-xs block"></i> Unidade
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="e in enderecos">
+                <td class="text-center vam">
+                  <i class="fa fa-circle-o pointer sz2" 
+                     ng-class="{'fa-circle-o':!e.selectedEndereco, 'fa-check-circle':e.selectedEndereco}"
+                     ng-click="setEndereco({{e}});"></i>
+                </td>
+                <td class="text-center vam">
+                  <span>
+                    <i class="fa fa-circle-o pointer sz2" 
+                     ng-class="{'fa-circle-o':!e.selected, 'fa-check-circle':e.selected}"
+                     ng-click="setProprietario({{e}});"></i>
+                  </span>
+                </td>
+                <td class="text-center vam">{{e.nome}}</td>
+                <td class="text-center vam">{{e.celular}}</td>
+                <td class="text-center vam">{{e.rua}}</td>
+                <td class="text-center vam">{{e.numero}}</td>
+              </tr>
+              <tr>
+                <td class="text-center vam">
+                    <span>
+                    <i class="fa fa-circle-o pointer sz2" 
+                     ng-class="{'fa-circle-o':endereco!='new', 'fa-check-circle':endereco=='new'}"
+                     ng-click="setNewEndereco();"></i>
+                  </span>
+                </td>
+                <td class="text-center vam" 
+                    title="Marque caso este morador seja proprietário do veículo!">
+                  <div class="checkbox">
+                    <span>
+                    <i class="fa fa-circle-o pointer sz2" 
+                     ng-class="{'fa-circle-o':!newProprietario, 'fa-check-circle':newProprietario}"
+                     ng-click="setNewProprietario();"></i>
+                    </span>
+                  </div>
+                </td>
+                <td class="text-center vam">{{morador.nome}}</td>
+                <td class="text-center vam">
+                  <div ng-show="morador.telefones">
+                    <div ng-repeat="t in morador.telefones">
+                      <i class="{{t.icone}} m-r-xs"></i> {{t.telefone|telefone}} - {{t.descricao}} ({{t.operadora}})
+                    </div>
+                  </div>
+                </td>
+                <td>
+                <select 
+                class="form-control" 
+                style="width: 70px;"
+                placeholder="Rua"
+                ng-model="rua" 
+                ng-change="consultarUnidadePelaRua()"
+                ng-options="item.rua for item in ruas">
+                </select>
+                </td>
+                <td>
+                <select 
+                class="form-control" 
+                style="width: 70px;"
+                ng-model="unidade" 
+                ng-disabled="unidades==undefined"
+                ng-change="consultarMoradorPeloEndereco()"
+                ng-options="item.numero for item in unidades">
+                </select>
+                </td>
+              </tr>
+            </tbody>
+           </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="close()">
+        	Cancelar
+        </button>
+
+        <button class="btn btn-default" ng-show="success==false" ng-click="reset()">
+            Novo Registro
+        </button>
+
+        <button class="btn btn-success" ng-hide="success" ng-click="registrar()" ng-disabled="placa.length!=7">
+            <i class="fa fa-car m-r-xs"></i> Registrar Entrada
+        </button>
+
+    </div>
+</script>

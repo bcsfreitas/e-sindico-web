@@ -1,0 +1,49 @@
+  <script type="text/ng-template" id="modalRegistrarEncomenda.html">
+
+    <div class="modal-header">
+        <h4 class="modal-title">Registro de Encomenda</h4>
+    </div>
+
+    <form name="form" class="modal-body">
+
+      <fotocam ng-model="fotoEncomenda" 
+           path-save="'../../gallery/encomenda/'"
+           path-view="'gallery/encomenda/'"
+           filename="'encomenda'">
+      </fotocam>
+
+      <div class="row">
+        <div class="form-group col-md-12">
+          <label for="remetente">Remetente</label>
+          <input type="text" 
+                 class="form-control" 
+                 id="remetente" 
+                 placeholder="Ex: CAESB, CEB, DER, Casas Bahia, Submarino"
+                 ng-model="remetente" 
+                 required/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-12">
+          <label for="dest">Destinatário</label>
+          <busca-de-morador ng-model="morador" required endereco="true"></busca-de-morador>
+        </div>
+
+        <div class="form-group col-md-12">
+          <label for="obs">Obsevações</label>
+          <textarea class="form-control" id="obs" ng-model="obs"></textarea>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="close()">
+          Fechar
+        </button>
+        <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="registrar()">
+            <i class="icon-envelope-letter m-r-xs"></i> Registrar Encomenda
+        </button>
+    </div>
+</script>

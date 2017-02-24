@@ -1,0 +1,66 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Formulário de Notícia</h1>
+</div>
+<div class="animated fadeDownLeft wrapper-md">
+  <div class="panel panel-default">
+
+    <form name="form" role="form">
+      <div class="row col-xs-12 m-t-md">
+        <div class="form-group col-xs-12">
+          <label>Título da notícia</label>
+          <input type="text" class="form-control" ng-required ng-model="post.title" />
+        </div>
+        <div class="form-group col-xs-12">
+          <label>Descrição da notícia</label>
+          <input type="text" class="form-control" ng-required ng-model="post.description" />
+        </div>
+
+        <div class="form-group col-xs-12">
+          <label>URL da imagem</label>
+          <input type="text" class="form-control" ng-required ng-model="post.imageUrl" />
+        </div>        
+        
+        <div class="form-group col-xs-12">
+          <label>Imagem da notícia</label>
+          <div ng-show="post.imageUrl">
+            <div>
+              <div>
+                  <img class="thumb"  ng-src="{{post.imageUrl}}"/>
+              </div>
+              <button class="btn btn-primary btn-xs m-t-xs" ng-click="post.imageUrl = undefined"><i class="fa fa-edit m-r-xs"></i> Alterar</button>
+            </div>
+          </div>
+          <div ng-hide="post.imageUrl">
+            <input type="file" file-model="image" class="form-control"/>
+          </div>
+
+        </div>
+
+        <div class="form-group col-xs-12">
+          <label>Texto da notícia</label>
+          <textarea class="form-control" rows="10" ng-required ng-model="post.text"></textarea>
+        </div>
+      </div>
+    </form>
+
+    <footer class="panel-footer text-right bg-light lter">
+      <button 
+        ng-show="post.id"
+        type="submit" 
+        class="btn btn-danger btn-rounded pull-left" 
+        ng-click="delete()">
+        <span><i class="fa fa-trash m-r-sm"></i>Excluir</span>
+      </button>
+
+      <button 
+        type="submit" 
+        class="btn btn-primary btn-rounded" 
+        ng-disabled="form.$invalid" 
+        ng-click="save()">
+        <span ng-show="post.id"><i class="fa fa-save m-r-sm"></i>Salvar</span>
+        <span ng-hide="post.id"><i class="fa fa-save m-r-sm"></i>Cadastrar</span>
+      </button>
+
+    </footer>
+  </div>
+</div>

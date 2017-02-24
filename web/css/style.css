@@ -1,0 +1,251 @@
+.app-header-fixed .app-header {
+    background: #1199c4;
+}
+
+.avatar{
+  height: 40px !important;
+  width: 40px !important;
+}
+
+.phone {
+    position: initial;
+    top: 26px;
+    left: 50%;
+    background-image: url("../img/port_back.png");
+    background-repeat: no-repeat;
+    width: 523px;
+    height: 580px;
+    transform-origin: 50% 0;
+    transition: top 1s ease-in-out;
+}
+
+.screen {
+    position: absolute;
+    top: 150px;
+    right: 82px;
+    width: 360px;
+    left: 93px;
+    background: #FAFAFA;
+    /* opacity: 0.5; */
+    /* transform: translateY(-600px) translateX(280px) scale(0.333333); */
+    /* z-index: -1; */
+}
+
+.screen-wrapper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: #eee;
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    
+}
+
+.TextView {
+    overflow-wrap: break-word;
+    overflow: hidden;
+    line-height: 1.2;
+    word-break: break-word;
+    padding: 20px;
+    background-color: rgb(204, 221, 255);
+    color: rgb(0, 0, 0);
+    font-size: 25px;
+    font-family: Roboto, sans-serif;
+    font-weight: 300;
+}
+
+.card{
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);
+}
+
+.card {
+    position: relative;
+    margin: 0.5rem 0 1rem 0;
+    background-color: #fff;
+    transition: box-shadow .25s;
+    border-radius: 2px;
+    padding: 12px;
+}
+
+.card .card-image {
+    position: relative;
+}
+
+.card .card-image img {
+    display: block;
+    border-radius: 2px 2px 0 0;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.card .card-image .card-title {
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+}
+
+.card .card-content {
+    padding: 10px;
+    border-radius: 0 0 2px 2px;
+}
+
+.card .card-action {
+    position: relative;
+    background-color: inherit;
+    border-top: 1px solid rgba(160,160,160,0.2);
+    padding: 20px;
+}
+
+
+.upper{
+  text-transform: uppercase;
+}
+
+.field-placa{
+  margin: 0 auto;
+  margin-top: 7px;
+  text-transform: uppercase;
+  height: 50px;
+  text-align: center;
+  font-size: 18pt;
+}
+
+.bggray{
+  background-color: #FAFBFC;
+}
+
+.bc-r-gray{
+  border-right: 1px solid #eaeff0;
+}
+
+.bc-l-gray{
+  border-left: 1px solid #eaeff0;
+}
+
+
+.bc-b-gray{
+  border-bottom: 1px solid #eaeff0;
+}
+
+.bc-t-gray{
+  border-top: 1px solid #eaeff0;
+}
+
+.border{
+ border: 1px solid #eaeff0; 
+}
+
+.x-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);
+
+.wd100{
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+
+.navbar-brand {
+    font-size: 16px;
+}
+
+.size-md{
+  font-size:19pt !important;
+}
+
+.size-sm{
+  font-size:16pt !important;
+}
+
+.size-xs{
+  font-size:14pt !important;
+}
+
+.text-orange{
+  color:#E2BB05;
+}
+
+.text-brown{
+  color:#A68787;
+}
+
+.text-bordo{
+  color:#B30000;
+}
+
+.vmiddle{
+  display: table-cell !important;
+  vertical-align: middle !important;
+}
+
+.thumb{
+  padding:3px;
+  background-color: #cdcdcd;
+  border-radius: 10px;
+  width:128px;
+}
+
+.thumbxs{
+  padding:3px;
+  background-color: #cdcdcd;
+  border-radius: 10px;
+  width:48px;
+}
+
+.fa-1-5x {
+  font-size: 1.5em;
+}
+
+.table-hover tbody tr:hover td, 
+  .table-hover tbody tr:hover th{
+      cursor: pointer !important;
+      background-color: #FFFDC2 !important;
+    }
+
+/*.list-group-item.active, .list-group-item:hover, .list-group-item:focus,
+.ng-click-active{
+cursor: pointer !important;
+      background-color: #FFFDC2 !important;
+}*/
+
+.table > tbody tr.selected {
+    background-color:#FFE6BD;
+}
+
+.app-aside-dock .app-aside .navi > ul > li.active {
+  background-color: #f6f8f8;
+}
+
+.opacity{
+  opacity: 0.3;
+}
+
+.app-aside-dock .app-aside .navi > ul > li.disable {
+  opacity: 0.4;
+  
+}
+
+.app-aside-dock .app-aside .navi > ul > li.disable a{
+  cursor:no-drop !important;
+}
+
+.chosen-container { width: 220px !important; }
+
+.fadeOut {
+    -webkit-animation: fadeOut 1s;
+    animation: fadeOut 1s;
+     opacity: 0;
+     display:none;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    99% {opacity: 0;}
+    100% { display:none;  }
+    
+}

@@ -1,0 +1,146 @@
+<div ui-view>
+	
+  <div class="bg-light lter b-b wrapper-md">
+	<button type="button"
+	        class="btn btn-default btn-addon pull-right m-t-n-xs" 
+	        target="#aside" 
+	        ng-click="form($event)">
+    	<i class="fa fa-plus"></i> Cadastrar Morador
+   </button>
+   <h1 class="m-n font-thin h3">Moradores</h1>
+</div>
+<div class="wrapper-md">
+	<div ng-hide="moradores">
+    	Sem moradores cadastrados no sistema.
+    </div>
+    <form class="form-inline hidden-print" ng-show="moradores">
+		<p>Utilize as opções abaixo, para filtrar as encomendas na tabela de dados.</p>
+		  
+		<div class="form-group">
+			<label for="morador" class="sr-only">Nome do Morador</label>
+			<input type="text" 
+
+			       class="form-control" 
+			       id="nome" 
+			       placeholder="Nome do Morador" 
+			       ng-model="ft.nome" />
+		</div>
+		<div class="form-group">
+			<label for="email" class="sr-only">E-mail</label>
+			<input type="text" 
+			       class="form-control" 
+			       id="email" 
+			       placeholder="E-mail" 
+			       ng-model="ft.email" />
+		</div>
+		<div class="form-group">
+		    <label for="rua" class="sr-only">Rua/Apto</label>
+		    <input type="text" class="form-control" id="rua" 
+		           placeholder="Rua/Apto" 
+		           ng-model="ft.rua">
+	    </div>
+		<div class="form-group">
+		    <label for="n" class="sr-only">Nº</label>
+		    <input type="text" class="form-control" id="n" 
+		           placeholder="Nº" 
+		           ng-model="ft.numero">
+		</div>
+		<div class="form-group">
+		    <label for="n" class="sr-only">Operadora</label>
+		    <select class="form-control" ng-model="ft.tel_descricao">
+		    	<option value="" selected="selected">Operadora</option>
+				<option ng-repeat="v in operadoras"
+				        value="{{v.nome}}" 
+				        title="{{v.nome}}">
+				        <span>{{v.nome}}</span>
+				</option>		    	
+		    </select>
+		</div>
+	</form>
+
+    <div class="clearfix m-t-md"></div>
+	<div class="panel panel-default" ng-show="moradores">
+	    <div class="table-responsive">
+	      <table class="table table-hover table-bordered table-striped b-t b-light">
+	        <thead>
+	          <tr>
+	            <th class="text-center">Nome</th>
+	            <th class="text-center">CPF</th>
+	            <th class="text-center">E-mail</th>
+	            <th class="text-center">Telefone</th>
+	            <th class="text-center">Endereço</th>
+	            <th class="text-center">Foto</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+				<tr ng-repeat="morador in moradores | filter:ft" 
+				    ng-click="form($event, morador.id)">
+				    <td class="text-center vmiddle">{{ morador.nome }}</td>
+				    <td class="text-center vmiddle">
+				    	<span ng-show="morador.cpf">{{ morador.cpf | cpf }}</span>
+			    	</td>
+				    <td class="text-center vmiddle">
+				    	<i class="fa fa-envelope-o" 
+				    	   ng-click="emailShow($event, morador)" 
+				    	   tooltip="Clique para visualizar"
+				    	   ng-show="morador.email && !morador.emailShow"></i>
+				    	<span ng-if="morador.email && morador.emailShow">{{morador.email}}</span>
+				    </td>
+				    <td class="text-center vmiddle">
+				    	<i class="fa fa-phone" ng-click="telShow($event, morador)"  
+				    	   tooltip="Clique para visualizar" 
+				    	   ng-if="morador.telefones && !morador.telShow"></i>
+				    	<table class="table table-condensed table-bordered" 
+				    	       ng-if="morador.telefones && morador.telShow">
+				    		<thead>
+          					<th class="text-center">&nbsp;</th>
+          					<th class="text-center">Número</th>
+          					<th class="text-center">Descrição</th>
+          					<th class="text-center">Operadora</t>
+					    	<thead>
+					    	<tbody>
+				    		<tr ng-repeat="u in morador.telefones">
+						    	<td class="text-center">
+					    			<i class="{{u.icone}} m-r-xs"></i>
+						    	</td>
+						    	<td class="text-center">
+						    		<span>{{u.telefone|telefone}}</span>
+						    	</td>
+						    	<td class="text-center">
+						    		<span>{{u.tel_descricao}}</span>
+						    	</td>
+						    	<td class="text-center">
+						    		<span>{{u.operadora}}</span>
+						    	</td>
+				    		</tr>
+					    	</tbody>
+				    	</table>
+				    </td>
+				    <td class="text-center vmiddle">
+				    	{{ morador.unidade.logradouro }} 
+				    	{{ morador.unidade.rua }} 
+				    	{{ morador.unidade.numero }}
+				    </td>
+				    <td class="text-center vmiddle">
+				    	<fotoview klass="'thumb'" 
+				    	          ng-model="morador.fotoPessoal" 
+				    	          path-view="'gallery/morador/'">
+				    	</fotoview>
+				    </td>
+				  </td>
+				</tr>	        	
+	        </tbody>
+	      </table>
+	    <footer class="panel-footer">
+	      <div class="row">
+	        <div class="col-sm-12 text-center">
+	          <small class="text-muted inline m-t-sm m-b-sm">
+	          	<span ng-show="lista.length==1">{{moradores.length}} moradores</span>
+	          	<span ng-show="lista.length>1">{{moradores.length}} moradores</span>
+	          </small>
+	        </div>
+	      </div>
+	    </footer>
+	  </div>
+	</div>
+</div>

@@ -1,0 +1,42 @@
+ <toaster-container></toaster-container>
+
+  <!-- navbar -->
+  <div data-ng-include=" 'tpl/blocks/header.html' " class="app-header navbar"></div>
+  <!-- / navbar -->
+
+  <!--modal basico para exclusao -->
+  <div ng-include="'tpl/blocks/modalBaseDeletar.html'"></div>
+
+  
+  <!-- menu -->
+  <div data-ng-include=" 'tpl/blocks/aside.html' " 
+       class="app-aside hidden-xs {{app.settings.asideColor}}"></div>
+  <!-- / menu -->
+
+  <!-- content -->
+  <div class="app-content">
+    <div ui-butterbar></div>
+    <a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".app-aside" ></a>
+    <div class="app-content-body fade-in" ui-view></div>
+  </div>
+  <!-- /content -->
+
+  <!-- footer -->
+  <div class="app-footer wrapper b-t bg-light">
+    <span class="pull-right hidden-print">
+      {{app.version}} 
+      <a href ui-scroll-to="app" class="m-l-sm text-muted hidden-print">
+        <i class="fa fa-long-arrow-up"></i>
+      </a>
+    </span>
+    <span class="pull-right m-r-md visible-print-block">
+      Impresso em: {{ datenow() }}
+    </span>
+    <span class="visible-print-block">
+      &copy; Coopersystem - {{app.version}}
+    </span>
+  </div>
+  <!-- / footer -->
+
+ <!-- <div data-ng-include=" 'tpl/blocks/settings.html' " 
+          class="settings panel panel-default"></div>  -->

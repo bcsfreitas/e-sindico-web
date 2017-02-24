@@ -1,0 +1,34 @@
+  <script type="text/ng-template" id="modalGerarQrcode.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Gerar Cartão de Acesso</h4>
+    </div>
+    <div class="modal-body text-center" id="printSection">
+
+        <qrcode-whrite ng-model="pessoa.cpf"></qrcode-whrite>
+
+<style>
+  @media print {
+    body * {
+      visibility:hidden;
+    }
+    #printSection, #printSection * {
+      visibility:visible;
+    }
+    #printSection {
+      position:absolute;
+      left:0;
+      top:0;
+    }
+  } 
+  </style>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="close()">
+        	Fechar
+        </button>
+        <button class="btn btn-primary" ng-click="print()">
+          <i class="fa fa-print m-r-xs"></i> Imprimir
+        </button>
+    </div>
+</script>

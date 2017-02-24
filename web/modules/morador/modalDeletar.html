@@ -1,0 +1,19 @@
+  <script type="text/ng-template" id="modalDeletar.html">
+
+    <div class="modal-header">
+        <h4 class="modal-title">Excluir Morador</h4>
+    </div>
+
+    <form name="form" class="modal-body text-center">
+      <h3>Você tem certeza que deseja exluir o morador <strong>{{morador.nome}}</strong>?</h3>
+    </form>
+
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="close()">
+          Cancelar
+        </button>
+        <button class="btn btn-danger" ng-click="deletar()">
+            <i class="fa fa-trash m-r-xs"></i> Excluir
+        </button>
+    </div>
+</script>

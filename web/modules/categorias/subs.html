@@ -1,0 +1,85 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">Gerenciar Sub-Categoria</h1>
+</div>
+<div class="wrapper-md">
+    <div class="panel panel-default">
+        <div class="panel-body"> 
+        	<div class="form-group text-center">
+
+
+                <div class="clearfix"></div>
+
+                <div class="col-lg-3 col-offset-9 col-centered">
+					<label>Selecione a categoria</label> 
+					<select class="form-control" placeholder="Selecione a categoria" ng-model="catagoriaSelecionada" ng-change="catSelecionada(catagoriaSelecionada.id_categoria)"
+					ng-options="c as c.tx_descricao for c in categorias"/>
+                </div>
+        
+                <div class="clearfix"></div>
+
+
+				<div class="m-t-lg" ng-show="id_categoria">
+
+	                <div class="col-lg-3 col-offset-9 col-centered">
+	                    <div class="form-group ">
+	                        <label>Descrição da Subcategoria</label> 
+                            <div class="input-group">
+    	                        <input type="text" autocomplete="off" name="descricao" class="form-control" 
+    	                        placeholder="Descricão da subItem-categoria" ng-model="subItem.tx_descricao">
+                                  <span class="input-group-btn" ng-click="save()">
+                                        <button class="btn btn-primary"><i class="fa fa-save"></i></button>
+                                  </span>  
+                            </div>                          
+	                    </div>
+	                </div>
+	                <div class="col-lg-3 col-offset-9 col-centered" style="display:none;">
+	                    <div class="form-group">
+	                        <label>Status</label>
+							<div class="input-group">
+		                      <input type="text" class="form-control" autocomplete="off" name="servicos" 
+		                             placeholder="Status da subItem-categoria" ng-model="subItem.tx_status">
+		                      <span class="input-group-btn" ng-click="save()">
+		                      		<button class="btn btn-primary"><i class="fa fa-save"></i></button>
+		                      </span>
+		                    </div>	                        
+	                    </div> 
+	                </div>
+
+				</div>
+
+                <div class="clearfix"></div>
+
+                <div class="m-t-lg col-lg-6 col-lg-offset-3 text-center" ng-show="subs.length">
+
+                    <h4 ng-show="subs.length">Subcategorias da categoria "{{catagoriaSelecionada.tx_descricao}}""
+                        <div class="form-group text-center" ng-show="id_categoria">
+                        <button class="btn btn-sm m-t-sm btn-primary" ng-click="nova()"><i class="fa fa-plus m-r-xs"></i> Nova Sub-categoria</button>
+                        </div>
+                    </h4>
+        
+
+
+                    <table st-table="rowCollectionBasic" class="m-t-sm table table-bordered table-striped">
+                        <thead>
+                                <tr>
+                                    <th>Subcategoria</th>
+                                    <th class="text-center">Ações</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="sub in subs">
+                                <td>{{sub.tx_descricao}}</td>
+                                <td class="text-center">
+                                    <button class="btn btn-xs btn-info" ng-click="setEdit(sub)"><i class="fa fa-pencil m-r-xs" ></i> Editar</button>
+                                    <button class="btn btn-xs btn-danger" ng-click="delete(sub.id_subcategoria, sub.id_categoria)">
+                                    <i class="fa fa-trash m-r-xs"></i> Excluir</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        	</div>  
+            <div class="clearfix"></div>
+        </div>
+    </div> 
+</div>

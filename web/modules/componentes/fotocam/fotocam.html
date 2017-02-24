@@ -1,0 +1,45 @@
+<div class="row">
+	<div class="col-xs-12 mobile-padding-right-5" >
+		<div id="box-camera" class="fotocam text-center thumbnail" ng-show="!ngModel">
+			<div id="camera" ng-if="!error && active">
+				<video id="video_{{videoId}}" style="width:100% !important;height:auto !important;"></video>
+				<button class="btn btn-primary btn-md btn-block" 
+				        ng-click="captureImage()" ng-disabled="ngModel">
+					<i class="fa fa-camera m-r-xs"></i> Tirar foto
+				</button>
+			</div>
+			<div class="pointer" ng-click="activate()" ng-show="active==false">
+				<i class="fa fa-camera m-t-xs" style="font-size:1.5em;"></i>
+				<div>Clique para ativar a câmera</div>
+			</div>
+			<div id="error-screen" ng-show="error"> 
+				<div class="text-danger">Erro na Câmera</div>
+				<div style="font-size:15pt;">
+					<span class="fa-stack fa-lg">
+					  <i class="fa fa-camera-retro fa-stack-1x"></i>
+					  <i class="fa fa-ban fa-stack-2x text-danger"></i>
+					</span>
+				</div>
+				<p class="text-danger text-center">
+					<div>
+						<strong>{{errorVar.title}}</strong>
+					</div>
+					{{errorVar.text}}
+				</p>
+				<button ng-show="error" class="btn btn-info btn-md btn-block m-t-xs" 
+				        ng-click="reload()">
+					<i class="fa fa-camera m-r-xs"></i> Recarregar câmera
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 mobile-padding-left-5" ng-show="ngModel">
+		<div id="box-preview" class="fotocam-preview text-center thumbnail">
+			<div id="canvasHolder_{{videoId}}" style="display:none;"></div>
+			<fotoview ng-model="ngModel" path-view="pathView"></fotoview>
+			<button class="btn btn-danger btn-md btn-block m-t-n-md" ng-click="cancel()">
+				<i class="fa fa-trash m-r-xs"></i> Descartar
+			</button>
+		</div>
+	</div>
+</div>

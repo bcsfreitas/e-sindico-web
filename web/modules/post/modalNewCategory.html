@@ -1,0 +1,21 @@
+  <script type="text/ng-template" id="modalNewCategory.html">
+
+    <div class="modal-header">
+        <h4 class="modal-title">Gerenciamento de Categorias</h4>
+    </div>
+
+    <form name="form" class="modal-body text-center">
+      <div class="input-group-btnp">
+        <input type="text" class="form-control input-sm" required placeholder="Nome da categoria" ng-model="name">
+      </div>
+    </form>
+
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="close()">
+          Cancelar
+        </button>
+        <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="save()">
+            <i class="fa fa-save m-r-xs"></i> Salvar
+        </button>
+    </div>
+</script>

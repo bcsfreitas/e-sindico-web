@@ -1,0 +1,27 @@
+<script type="text/ng-template" id="modalFotoView.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Visualização de Imagem</h4>
+    </div>
+    <div class="modal-body text-center">
+    	<div class="col-xs-12"><img style="width:100%;" ng-src="{{currentImageView}}"/></div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="close()">
+        	Fechar
+        </button>
+    </div>
+</script>
+<div class="pointer {{class}}" 
+     tooltip="Visualizar em tela grande!" 
+     ng-if="currentImageView" 
+     ng-click="view($event)">
+	<img  ng-src="{{currentImageView}}"/>
+</div>
+<span ng-show="!currentImageView" class="btn-block m-b-sm m-t-xs padding-5">
+	<span class="fa-stack fa-lg">
+	  <i class="fa fa-camera fa-stack-1x"></i>
+	  <i class="fa fa-ban fa-stack-2x text-danger"></i>
+	</span>
+</span>
+<div class="clearfix"></div>

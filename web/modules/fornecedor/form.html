@@ -1,0 +1,258 @@
+<div class="bg-light lter b-b wrapper-md">
+    <div ng-include="'./modules/includes/menuContextual.html'"></div>
+    <h1 class="m-n font-thin h3">Fornecedor</h1>
+</div>
+
+<div class="wrapper-md">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <p>Dados da Empresa</p>
+        </div>
+        <div class="panel-body"> 
+
+            $scope.fornecedor = {
+                "tx_email":"x@x.com.br", 
+                "tx_senha":"123", 
+                "tx_foto":"bla blka", 
+                "id_nivel":4, 
+                "nu_cnpj":"014014014235252", 
+                "tx_razao_social":"Razao do mau",
+                "tx_nm_fantasia":"Fantasy Name",
+                "tx_nm_contato":"3432842348",
+                "tx_status":"A"
+            };
+
+
+
+            <div class="row">
+                <div class="col-lg-12">
+      
+                    <div class="form-group col-lg-6">
+                        <label>Nome fantasia</label> 
+                        <span class="text-danger" ng-show="form.tx_razao_social.$error.$required"> O Campo nome fantasia é obrigatório</span> 
+                        <input type="text" autocomplete="off" name="tx_razao_social" class="form-control" 
+                           placeholder="Nome fantasia" ng-model="fornecedor.tx_razao_social">
+                    </div>   
+                    <div class="form-group col-lg-6">
+                        <label>CNPJ</label> 
+                        <span class="text-danger" ng-show="form.nu_cnpj.$error.$required"> O Campo CNPJ é obrigatório</span> 
+                        <input type="text" autocomplete="off" name="nu_cnpj" class="form-control" 
+                           placeholder="CNPJ" ng-model="fornecedor.nu_cnpj">
+                    </div>   
+                                               
+                    <div class="form-group" style="display: none;">
+                        <label>CEP</label> 
+                        <span class="text-danger" ng-show="form.cep.$error.$required"> O Campo cep é obrigatório</span> 
+                        <input type="text" autocomplete="off" name="cep" class="form-control" placeholder="CEP" ng-model="fornecedor.cep">
+                    </div>                                 
+
+                    <div class="form-group" style="display: none;">
+                        <label>Bairro</label> 
+                        <span class="text-danger" ng-show="form.bairro.$error.$required"> O Campo Bairro é obrigatório</span> 
+                        <input type="text" autocomplete="off" name="bairro" class="form-control" placeholder="Bairro" ng-model="fornecedor.bairro">
+                    </div>               
+
+                    <div class="form-group" style="display: none;">
+                        <label>Estado (UF)</label> 
+                        <span class="text-danger" ng-show="form.uf.$error.$required"> O Campo Estado (UF) é obrigatório</span> 
+                        <input type="text" autocomplete="off" name="uf" class="form-control" placeholder="Estado (UF)" ng-model="fornecedor.uf">
+                    </div>                                                               
+                </div>
+                <div class="form-group col-md-6" style="display: none;">
+                    <div class="form-group">
+                        <label>Endereço</label> 
+                        <span class="text-danger" ng-show="form.endereco.$error.$required"> O Campo endereço é obrigatório</span> 
+                        <input type="text" autocomplete="off" name="endereco" class="form-control" placeholder="Endereço" ng-model="fornecedor.endereco">
+                    </div>  
+
+                    <div class="form-group">
+                        <label>Complemento</label> 
+                        <span class="text-danger" ng-show="form.complemento.$error.$required"> O Campo complemento é obrigatório</span> 
+                        <input type="text" autocomplete="off" name="complemento" class="form-control" placeholder="Complemento" ng-model="fornecedor.complemento">
+                    </div>     
+
+                    <div class="form-group">
+                        <label>Cidade</label> 
+                        <span class="text-danger" ng-show="form.cidade.$error.$required"> O Campo cidade é obrigatório</span> 
+                        <input type="text" autocomplete="off" name="cidade" class="form-control" placeholder="Cidade" ng-model="fornecedor.cidade">
+                    </div>                                                                                                        
+                </div> 
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <p>Serviços Oferecidos</p>
+        </div>
+        <div class="panel-body"> 
+            <div class="form-group">
+                <label>Tipos de Serviços</label> 
+                <span class="text-danger" ng-show="form.cidade.$error.$required"> O Campo serviços é obrigatório</span> 
+
+                <div class="input-group">
+                  <input type="text" class="form-control" autocomplete="off" name="servicos" class="form-control" placeholder="Inclua tipo de serviços oferecidos" ng-model="fornecedor.servicos">
+                  <span class="input-group-btn"><button class="btn btn-primary"><i class="fa fa-plus"></i></button></span>
+                </div>
+
+                <div class="m-t-sm">
+                    <span class="label bg-primary pos-rlt m-r inline wrapper-xs">
+                    <i class="arrow right arrow-primary"></i> Limpeza</span>
+
+                    <span class="label bg-primary pos-rlt m-r inline wrapper-xs">
+                    <i class="arrow right arrow-primary"></i> Manutenção</span>                        
+                </div>
+            </div>             
+        </div>
+    </div>    
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <p>Documentos da Empresa</p>
+        </div>
+        <div class="panel-body"> 
+            <div class="form-group">
+                <label>Tipos de Serviços</label> 
+
+                <p class="text-muted">
+                Para o devido cadastro da empresa é necessário incluir os documentos que comprovem o exercício legal das atividades da empresa.
+                </p>
+
+                <div class="form-group col-md-6">
+                    <label>Descição</label> 
+                    <span class="text-danger" ng-show="form.descicaoAnexo.$error.$required"> O Campo descição do anexo é obrigatório</span> 
+                    <input type="text" autocomplete="off" name="descicaoAnexo" class="form-control" placeholder="Descição do Anexo" ng-model="fornecedor.descicaoAnexo">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Anexo</label> 
+                    <span class="text-danger" ng-show="form.descicaoAnexo.$error.$required"> O Campo anexo é obrigatório</span> 
+                    <input type="file" autocomplete="off" name="anexo" placeholder="Selecione o documento" ng-model="fornecedor.anexo">
+                </div> 
+
+                <button 
+                    type="button" 
+                    class="btn btn-primary btn-rounded pull-right" 
+                    ng-click="adicionaAnexo()">
+                        <span><i class="fa fa-paperclip m-r-sm"></i>Anexar</span>
+                </button>
+        
+                <div class="clearfix"></div>
+
+                <p class="text-center">Documentos anexados</p>
+                <table st-table="rowCollectionBasic" class="m-t-sm table table-bordered table-striped">
+                    <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Nome</th>
+                                <th>Tamanho</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat2="row in fornecedor.documentos">
+                            <td>Inscrição Estadual de 2016</td>
+                            <td>Documento de Inscrição</td>
+                            <td>100 kb</td>
+                            <td class="text-center">
+                                <button class="btn btn-info"><i class="fa fa-pencil m-r-xs"></i> Editar</button>
+                                <button class="btn btn-danger"><i class="fa fa-trash m-r-xs"></i> Excluir</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>             
+        </div>
+    </div>      
+
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="col-md-12 panel panel-default">
+
+        <div class="panel-heading">
+          <p>Documentos do Representante</p>
+        </div>
+        <div class="panel-body">
+            <form class="row form-no-validation" name="form" role="form" id="form">
+                <div class="col-xs-12 col-md-6">
+
+                    <div class="form-group">
+                        <label>Nome Completo</label> 
+                        <span class="text-danger" ng-show="form.nome.$error.$required"> O Campo nome completo é obrigatório</span> 
+                        <input type="text" autocomplete="off" name="nome" class="form-control" placeholder="Nome completo" ng-model="usuario.name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>CPF</label> 
+                        <span class="text-danger" ng-show="form.cpf.$error.$required"> O Campo cpf é obrigatório</span> 
+                        <input type="password" autocomplete="off" name="cpf" class="form-control" placeholder="Senha de acesso" ng-model="usuario.cpf"/>
+                    </div>
+
+                    <div class="form-group">
+                       <label>Telefone</label> 
+                       <span class="text-danger" ng-show="form.email.$error.$required">O Campo telefone é obrigatório</span> 
+                       <input type="text" autocomplete="off" name="telefone" class="form-control" placeholder="Telefone do usuário" 
+                              ng-required ng-model="usuario.telefonePessoal" mask="(99) 99999?-9999" clean="true">
+                    </div> 
+                 
+                </div>
+            </form>
+        </div>
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="col-md-12 panel panel-default">
+        <div class="panel-heading">
+          <p>Dados de Acesso</p>
+        </div>
+        <div class="panel-body">
+            <form class="row form-no-validation" name="form" role="form" id="form">
+                <div class="col-xs-12 col-md-6">
+
+                    <div class="form-group">
+                        <label>E-mail</label> 
+                        <span class="text-danger" ng-show="form.email.$error.$required"> O Campo e-mail é obrigatório</span> 
+                        <input type="text" autocomplete="off" name="email" class="form-control" placeholder="E-mail" ng-model="usuario.email">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Senha</label> 
+                        <span class="text-danger" ng-show="form.senha.$error.$required"> O Campo senha é obrigatório</span> 
+                        <input type="password" autocomplete="off" name="senha" class="form-control" placeholder="Senha" ng-model="usuario.senha"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Confirme a senha</label> 
+                        <span class="text-danger" ng-show="form.senhaConfirma.$error.$required"> O Campo confirme a senha é obrigatório</span> 
+                        <input type="password" autocomplete="off" name="senhaConfirma" class="form-control" placeholder="Confirme a senha" ng-model="usuario.senhaConfirma"/>
+                    </div>
+                 
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+
+    <div class="clearfix"/>
+    <div class="panel-body">
+    <footer class="panel-footer text-right bg-light lter">
+        <button 
+            ng-show="usuario.id"
+            type="submit" 
+            class="btn btn-danger btn-rounded pull-left" 
+            ng-click="delete()">
+            <span><i class="fa fa-trash m-r-sm"></i>Excluir</span>
+        </button>
+        <button type="submit" class="btn btn-primary btn-rounded pull-right" ng-disabled="form.$invalid" ng-click="save()"> 
+            <span ng-hide="usuario.id"><i class="fa fa-save m-r-sm"/>Cadastrar</span> 
+            <span ng-show="usuario.id"><i class="fa fa-save m-r-sm"/>Salvar</span>
+        </button>
+    </footer>     
+    </div>
+</div>

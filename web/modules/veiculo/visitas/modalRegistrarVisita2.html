@@ -1,0 +1,124 @@
+  <script type="text/ng-template" id="modalRegistrarVisita.html">
+    <form name="form">
+    <div class="modal-header">
+        <h4 class="modal-title">Configurações de Vísita de Veículo</h4>
+    </div>
+    <div class="modal-body">
+	    <div class="form-group col-xs-6">
+            <label class="wd100">Placa do Veículo</label>
+            <input type="text" 
+                   autocomplete="off"
+                   name="placa" 
+                   id="placa"
+                   class="form-control field-placa wd100" 
+                   placeholder="JKL-1234"
+                   mask="aaa9999"
+                   ng-model="placa"
+                   ng-change="consultarPlaca()" />
+      </div>
+      <div class="form-group col-xs-6">
+            <label class="wd100">Modelo do Veículo</label>
+            <input type="text" 
+                   autocomplete="off"
+                   name="modelo" 
+                   id="modelo"
+                   class="form-control field-placa wd100"
+                   placeholder="Gol 1.0"
+                   ng-model="modelo"
+                   ng-change="consultarModelo()" />
+      </div>
+      <div class="clearfix"></div>
+        <div class="col-xs-12 m-b-sm m-t-xs" ng-show="veiculo.placa && veiculo.modelo">
+          <div class="text-muted m-b-xs">
+            <i class="fa fa-car m-r-xs"></i> Informações do veículo selecionado
+            <button class="btn btn-default btn-xs pull-right m-b-xs" ng-click="remover()">
+              <i class="fa fa-close m-r-xs"></i>Remover
+            </button>
+          </div>
+          <div class="clearfix"></div>
+          <div class="col-xs-12 bc-l-gray bc-r-gray bc-b-gray padding-5" 
+               ng-class="{'alert-danger':situacao.codigoSituacao==1, 
+                          'alert-success':situacao.codigoSituacao==0}" 
+               ng-show="situacao">
+            <i class="fa m-r-xs" ng-class="{'fa-thumbs-o-up':situacao.codigoSituacao==0, 'fa-thumbs-o-down':situacao.codigoSituacao==1}"></i> Situação do Veículo: {{situacao.situacao}}
+            <span ng-show="situacao.codigoSituacao==1" class="pull-right">Não aborde o veículo por conta própria, ligue para a polícia no 190.</span>
+          </div>          
+          <div class="col-xs-6 padding-top-5 col-sm-3 bggray bc-l-gray bc-r-gray bc-t-gray bc-b-gray text-center">
+            <strong class="wd100 bold m-t-xs">Marca</strong>
+            <div class="m-t-xs m-b-xs">{{veiculo.marca}}</div>
+          </div>
+          <div class="col-xs-6 padding-top-5 col-sm-3 bggray bc-r-gray bc-t-gray bc-b-gray text-center">
+            <strong class="wd100 bold m-t-xs">Modelo</strong>
+            <div class="m-t-xs m-b-xs">{{veiculo.modelo}}</div>
+          </div>
+          <div class="col-xs-6 padding-top-5 col-sm-3 bggray bc-r-gray bc-t-gray bc-b-gray text-center">
+            <strong class="wd100 bold m-t-xs">Cor</strong>
+            <div class="m-t-xs m-b-xs">{{veiculo.cor}}</div>
+          </div> 
+          <div class="col-xs-6 padding-top-5 col-sm-3 bggray bc-r-gray bc-t-gray bc-b-gray text-center">
+            <strong class="wd100 bold m-t-xs">Ano/Modelo</strong>
+            <div class="m-t-xs m-b-xs">{{veiculo.ano}}/{{veiculo.modelo_ano}}</div>
+          </div>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group col-sm-12 col-xs-12 m-t-xs" ng-show="veiculos && !veiculo.placa">
+            <div class="text-muted">
+              <i class="fa fa-question-circle m-r-xs"></i> Lista de veículos que já acessaram o condomínio
+            </div>
+            <table class="table table-bordered table-striped table-hover m-t-xs">
+              <thead>
+              <tr class="text-center">
+                <th class="text-center">Placa</th>
+                <th class="text-center">Marca</th>
+                <th class="text-center">Modelo</th>
+                <th class="text-center">Cor</th>
+                <th class="text-center">Ano/Modelo</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="text-center" ng-repeat="car in veiculos"  ng-click="setVeiculo(car)">
+                <td class="text-center">{{car.placa | placaFormat}}</td>
+                <td class="text-center">{{car.marca}}</td>
+                <td class="text-center">{{car.modelo}}</td>
+                <td class="text-center">{{car.cor}}</td>
+                <td class="text-center">{{car.ano}}/{{car.modelo_ano}}</td>
+              </tr>
+              </tbody>
+            </table>
+        </div>
+        <div class="form-group col-xs-12 m-t-xs" ng-show="veiculo.placa || placa.length==7"> 
+            <label class="text-muted">
+              <i class="fa fa-home m-r-xs" style="font-size:15pt;"></i>
+              Unidade a ser visitada
+            </label>    
+            <busca-de-endereco 
+              ng-model="veiculo.unidade"
+              name="unidade" required>
+            </busca-de-endereco>
+        </div>
+        <div class="form-group col-xs-12 m-t-n-sm" ng-show="veiculo.unidade.id"> 
+          <label class="text-muted">
+            <i class="fa fa-male m-r-xs" style="font-size:15pt;"></i>
+            Morador a ser visitado
+          </label>   
+          <busca-de-morador-por-endereco 
+            ng-model="veiculo.morador"
+            id-unidade="veiculo.unidade.id">
+          </busca-de-morador-por-endereco>
+        </div>          
+    </div>
+    <div class="clearfix"></div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="close()">
+        	Fechar
+        </button>
+        <button class="btn btn-primary" 
+                ng-click="save()" ng-disabled="!veiculo.unidade.id || disableRegistrar">
+            <i class="fa fa-car m-r-xs"></i> 
+            <span ng-show="visita.id">Registrar Saída</span>
+            <span ng-show="!visita.id">Registrar Entrada</span>
+        </button>
+    </div>
+    </form>
+</script>

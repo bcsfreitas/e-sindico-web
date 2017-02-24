@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="app" xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-BR" lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="Content-language" content="pt-BR" />
+
+  <title>eSindico</title>
+  <meta name="description" content="Angularjs, Html5, Music, Landing, 4 in 1 ui kits package" />
+  <meta name="keywords" content="AngularJS, angular, bootstrap, admin, dashboard, panel, app, charts, components,flat, responsive, layout, kit, ui, route, web, app, widgets" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="vendor/animate.css/animate.css" type="text/css" />
+  <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css" type="text/css" />
+  <link rel="stylesheet" href="css/font.css" type="text/css" />
+  <link rel="stylesheet" href="css/app.css" type="text/css" />
+  <link rel="stylesheet" href="css/margin.css" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <!-- Favicons -->
+  <link rel="icon" type="image/png" href="img/favicon/cooper.png" sizes="16x16" />
+  
+  <meta name="msapplication-TileColor" content="#da532c" />
+  <meta name="theme-color" content="#ffffff" />
+</head>
+<body ng-controller="AppCtrl">
+  <div class="app" id="app" ng-class="{'app-header-fixed':true, 'app-aside-fixed':true, 'app-aside-folded':false, 'app-aside-dock':true, 'container':false}" ui-view>
+  </div>
+  <!-- jQuery -->
+  <script src="vendor/jquery/dist/jquery.min.js"></script>
+  <!-- Angular -->
+  <script src="vendor/angular/angular.js"></script>
+  
+  <script src="vendor/angular-animate/angular-animate.js"></script>
+  <script src="vendor/angular-cookies/angular-cookies.js"></script>
+  <script src="vendor/angular-resource/angular-resource.js"></script>
+  <script src="vendor/angular-sanitize/angular-sanitize.js"></script>
+  <script src="vendor/angular-touch/angular-touch.js"></script>
+
+  <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script> 
+  <script src="vendor/ngstorage/ngStorage.js"></script>
+  <script src="vendor/angular-ui-utils/ui-utils.js"></script>
+
+  <!-- bootstrap -->
+  <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <!-- lazyload -->
+  <script src="vendor/oclazyload/dist/ocLazyLoad.js"></script>
+  <!-- translate -->
+  <script src="vendor/angular-translate/angular-translate.js"></script>
+  <script src="vendor/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+  <script src="vendor/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+  <script src="vendor/angular-translate-storage-local/angular-translate-storage-local.js"></script>
+  <script src="vendor/moment/min/moment.min.js"></script>
+  <script src="vendor/moment/min/moment-with-locales.min.js"></script>
+  <script src="vendor/angular-mask/ngMask.min.js"></script>
+  <script src="vendor/angular-filter-master/dist/angular-filter.min.js"></script>
+  <script src="vendor/angular-hotkeys-master/build/hotkeys.min.js"></script>
+
+  <link rel="stylesheet" href="vendor/angularjs-toaster/toaster.css" type="text/css" />
+  <script type="text/javascript" src="vendor/angularjs-toaster/toaster.js"></script>
+  
+  <script src="modules/componentes/fotocam/fotocam.js"></script>
+  <script src="modules/componentes/buscaDeEndereco/buscaDeEndereco.js"></script>
+  <script src="modules/componentes/buscaDeMorador/buscaDeMorador.js"></script>
+  
+  
+  <script src="modules/componentes/qrcode/libqrcode.js"></script>
+  <script src="modules/componentes/qrcode/qrcode.min.js"></script>
+  <script src="modules/componentes/qrcode/qrcode.js"></script>
+
+  <!-- App -->
+  <script src="js/app.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/config.lazyload.js"></script>
+  <script src="js/config.router.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/services/ui-load.js"></script>
+  <script src="js/filters/fromNow.js"></script>
+  <script src="js/directives/setnganimate.js"></script>
+  <script src="js/directives/ui-butterbar.js"></script>
+  <script src="js/directives/ui-focus.js"></script>
+  <script src="js/directives/ui-fullscreen.js"></script>
+  <script src="js/directives/ui-jq.js"></script>
+  <script src="js/directives/ui-module.js"></script>
+  <script src="js/directives/ui-nav.js"></script>
+  <script src="js/directives/ui-scroll.js"></script>
+  <script src="js/directives/ui-shift.js"></script>
+  <script src="js/directives/ui-toggleclass.js"></script>
+  <script src="js/controllers/bootstrap.js"></script>
+  
+  <!-- Lazy loading -->
+  <!-- <script src="modules/unidade/unidade.js"></script> -->
+  <script language="javascript" type="text/javascript">
+    //BLOQUEIA TECLAS DE ATUALIZAÇÃO DE TELA
+    document.onkeydown = function (e) {
+      // e.preventDefault();
+      // if (e.keyCode === 116) {
+      //   return false;
+      // }
+      // if (e.ctrlKey && e.keyCode == 17) {
+      //   return false;
+      // }
+    };
+  </script>
+</body>
+</html>

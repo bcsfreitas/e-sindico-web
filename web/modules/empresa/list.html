@@ -1,0 +1,56 @@
+<div ui-view class="animated fadeUpLeft">
+  <div class="bg-light lter b-b wrapper-md">
+	<div ng-include="'./modules/includes/menuContextual.html'"></div>
+	 <h1 class="m-n font-thin h3">Empresas <small class="text-muted inline m-l-sm">gerenciadas por você</small></h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+
+    <div class="table-responsive">
+
+      <table class="table table-hover table-striped b-t b-light">
+
+        <thead>
+          <tr>        
+            <th class="text-center">Gerenciar</th>
+            <th class="text-center">Imagem</th>
+            <th class="text-center">Empresa</th>
+            <th class="text-center">CNPJ</th>
+            <th class="text-center">Cores</th>            
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="company in registros">
+            <td class="text-center" ui-sref="app.empresa({companyId: company.id})">
+              <i class="fa fa-lg"  ng-class="{'fa-check-circle text-success':company.id == params.companyId, 'fa-circle  text-primary':company.id != params.companyId}"></i>
+            </td>
+            <td ng-click="select(company.id)" class="text-center">
+              <img height="60" class="thumb"  ng-src="{{company.imageUrl}}"/>
+            </td>            
+            <td ng-click="select(company.id)" class="text-center">{{company.name}}</td>
+            <td ng-click="select(company.id)" class="text-center">{{company.cnpj}}</td>
+            <td ng-click="select(company.id)" class="text-center">
+              <input type="color" ng-model="company.color"/>
+              <input type="color" ng-model="company.colorFont"/>
+            </td>            
+          </tr>
+        </tbody>
+
+      </table>
+
+      <footer class="panel-footer">
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <small class="text-muted inline m-t-sm m-b-sm">
+              <span ng-show="registros.length==1">1 empresa</span>
+              <span ng-show="registros.length>1">{{registros.length}} empresas</span>
+            </small>
+          </div>
+        </div>
+      </footer>
+      
+    </div>
+
+  </div>
+</div>

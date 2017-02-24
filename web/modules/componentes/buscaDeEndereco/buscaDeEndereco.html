@@ -1,0 +1,87 @@
+<div class="row">
+	<div class="col-xs-12">
+		<div class="form-inline">
+            <div class="form-group form-inline">
+            	<i class="fa fa-search m-r-sm text-muted visible-lg-inline"></i>
+				<input type="text" 
+	                   autocomplete="off"
+	                   placeholder="Logradouro"
+	                   class="form-control"  
+	                   ng-model="unidade.logradouro" ng-change="search()" />
+				<input type="text" 
+	                   autocomplete="off"
+   	                   class="form-control"  
+	                   placeholder="Rua"
+	                   ng-model="unidade.rua" ng-change="search()" />  
+  
+				<input type="text" 
+	                   autocomplete="off"
+	                   class="form-control"  
+	                   placeholder="Número"
+	                   ng-model="unidade.numero" ng-change="search()" /> 
+
+            </div>                              
+		</div>
+
+		<div class="clearfix"></div>
+
+		<table class="table table-bordered m-t-sm" ng-show="ngModel && !unidades">
+			<thead>
+			  <tr>
+			  	<th></th>
+			    <th>Logradouro</th>
+			    <th>Rua</th>
+			    <th>Número</th>
+			    <th>CEP</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-class="selected">
+			  	<td class="text-center vmiddle">
+			  		<span>
+			  			<i class="fa fa-check-circle fa-1-5x text-primary"></i>
+			  		</span>
+			  	</td>
+			    <td class="text-center vmiddle">
+			    	<span ng-show="ngModel.logradouro">{{ngModel.logradouro}}</span>
+			    	<span ng-show="!ngModel.logradouro">--</span>
+			    </td>
+			    <td class="text-center vmiddle">{{ngModel.rua}}</td>
+			    <td class="text-center vmiddle">{{ngModel.numero}}</td>
+			    <td class="text-center vmiddle">{{ngModel.cep|cep}}</td>
+			  </tr>
+			</tbody>
+		</table>
+
+	  	<table class="table table-hover table-bordered m-t-sm" ng-show="unidades">
+		    <thead>
+		      <tr>
+		      	<th></th>
+		        <th>Logradouro</th>
+		        <th>Rua</th>
+		        <th>Número</th>
+		        <th>CEP</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr ng-repeat="u in unidades" ng-click="setUnidade(u)" ng-class="{'selected':ngModel.id == u.id}">
+		      	<td class="text-center vmiddle">
+		      		<span ng-show="u.id == ngModel.id">
+		      			<i class="fa fa-check-circle fa-1-5x text-primary"></i>
+		      		</span>
+		      		<span ng-show="u.id != ngModel.id">
+		      			<i class="fa fa-circle-thin fa-1-5x text-default"></i>
+		      		</span>
+		      	</td>
+		        <td class="text-center vmiddle">
+		        	<span ng-show="u.logradouro">{{u.logradouro}}</span>
+		        	<span ng-show="!u.logradouro">--</span>
+		        </td>
+		        <td class="text-center vmiddle">{{u.rua}}</td>
+		        <td class="text-center vmiddle">{{u.numero}}</td>
+		        <td class="text-center vmiddle">{{u.cep}}</td>
+		      </tr>
+	      </tbody>
+	  </table>
+	</div>
+</div>
