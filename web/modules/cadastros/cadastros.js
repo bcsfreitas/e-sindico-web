@@ -300,7 +300,7 @@
 			$rootScope.request({method:"GET", url:'/categoria/listall'}, function(response){
 		        if(response && !response.error){
 		        	$scope.categorias = response.data;
-		        	$scope.categorias.unshift({'tx_descricao':'Nenhuma', 'id_categoria':undefined});
+		        	$scope.categorias.unshift({'tx_descricao':'Categoria', 'id_categoria':undefined});
 		        }else{
 		          $rootScope.$emit('toaster', {type:'error', title:response.error});
 		        }
